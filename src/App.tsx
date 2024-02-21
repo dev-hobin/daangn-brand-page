@@ -1,50 +1,57 @@
-import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { tv } from 'tailwind-variants'
-
-const button = tv({
-  base: 'rounded-full bg-blue-50 font-medium text-white active:opacity-80',
-  variants: {
-    color: {
-      primary: 'bg-blue-500 text-white',
-      secondary: 'bg-purple-500 text-white',
-    },
-    size: {
-      sm: 'text-sm',
-      md: 'text-base',
-      lg: 'px-4 py-3 text-lg',
-    },
-  },
-  compoundVariants: [
-    {
-      size: ['sm', 'md'],
-      class: 'px-3 py-1',
-    },
-  ],
-  defaultVariants: {
-    size: 'md',
-    color: 'primary',
-  },
-})
+import { gsap } from 'gsap'
 
 function App() {
   useGSAP(() => {
-    gsap.to('.button', { rotation: 180, repeat: -1, ease: 'none' })
-  })
+    const tl = gsap.timeline()
 
+    tl.from('.question-letter', {
+      visibility: 'hidden',
+      position: 'absolute',
+      ease: 'power3.out',
+      stagger: 0.15,
+    })
+      .to(
+        '.question',
+        {
+          yPercent: -50,
+          opacity: 0,
+          ease: 'power3.inOut',
+        },
+        '+=1',
+      )
+      .from(
+        '.answer-letter',
+        {
+          opacity: 0,
+          yPercent: 100,
+          stagger: {
+            amount: 0.1,
+          },
+          ease: 'back.out(1.7)',
+        },
+        '-=25%',
+      )
+  })
   return (
-    <>
-      <h1 className='text-3xl font-bold underline'>Hello world!</h1>
-      <button
-        className={button({
-          size: 'sm',
-          color: 'secondary',
-          className: 'button',
-        })}
-      >
-        Click me
-      </button>
-    </>
+    <main>
+      <section className='grid h-screen place-content-center'>
+        <h1 className='relative flex flex-col items-center overflow-hidden py-12 text-8xl font-black'>
+          <div className='question absolute inset-x-0 inset-y-12 text-center'>
+            <span className='question-letter'>당</span>
+            <span className='question-letter'>근</span>
+            <span className='question-letter'>이</span>
+            <span className='question-letter'>세</span>
+            <span className='question-letter'>요</span>
+            <span>?</span>
+          </div>
+          <div className='answer flex'>
+            <span className='answer-letter'>네!</span>
+            <span className='answer-letter'>&nbsp;당근이에요</span>
+          </div>
+        </h1>
+      </section>
+    </main>
   )
 }
 
