@@ -95,9 +95,12 @@ function App() {
           pin: true,
           pinSpacing: false,
           start: 'top top',
-          end: 'bottom top',
+          end: () => `bottom+=${innerHeight}px bottom`,
           scrub: true,
-          markers: true,
+          markers: {
+            startColor: 'green',
+            endColor: 'green',
+          },
         },
       })
       .fromTo(
@@ -127,10 +130,30 @@ function App() {
         '-=80%',
       )
       .from('[data-intro-desc]', { y: '1rem', opacity: 0 })
-      // brand film 시작
-      .to('[data-section="brand-film"]', {
+      .to('[data-logo-fade-effect]', {
         opacity: 1,
       })
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: '[data-scroll-container="brand-film"]',
+        pin: true,
+        pinSpacing: false,
+        start: 'top top',
+        end: () => `bottom+=${innerHeight}px bottom`,
+        onEnter: () => {
+          gsap.set('[data-section="brand-film"]', { opacity: 1 })
+        },
+        onLeaveBack: () => {
+          gsap.set('[data-section="brand-film"]', { opacity: 0 })
+        },
+        scrub: true,
+        markers: {
+          startColor: 'purple',
+          endColor: 'purple',
+        },
+      },
+    })
   })
 
   return (
@@ -184,84 +207,88 @@ function App() {
           </div>
         </section>
       </div>
-      <div data-scroll-container='logo' className='h-[7000px]'>
-        <div data-view className='relative h-screen'>
-          <section
-            data-section='logo'
-            className='relative grid h-screen place-content-center'
+      <div data-scroll-container='logo' className='h-[3000px]'>
+        <section
+          data-section='logo'
+          className='relative grid h-screen place-content-center'
+        >
+          <div data-logo className='relative flex items-center'>
+            <picture>
+              <source srcSet='/images/logo-img.webp' type='image/webp' />
+              <img
+                data-logo-image
+                src='/images/logo-img.png'
+                alt='새로운 당근 로고 이미지'
+                className='absolute left-0 top-0 w-[10.875rem] min-w-[10.875rem] opacity-0'
+              />
+            </picture>
+            <picture>
+              <source srcSet='/images/logo-text.webp' type='image/webp' />
+              <img
+                data-logo-text
+                srcSet='/images/logo-text.png'
+                alt='새로운 당근 로고 텍스트'
+                className='absolute left-0 top-0 h-[8.4375rem] w-[15.5rem] min-w-[15.5rem] -translate-y-12 opacity-0'
+              />
+            </picture>
+          </div>
+          <div
+            data-intro-desc
+            className='absolute bottom-[25%] left-1/2 -translate-x-1/2'
           >
-            <div data-logo className='relative flex items-center'>
-              <picture>
-                <source srcSet='/images/logo-img.webp' type='image/webp' />
-                <img
-                  data-logo-image
-                  src='/images/logo-img.png'
-                  alt='새로운 당근 로고 이미지'
-                  className='absolute left-0 top-0 w-[10.875rem] min-w-[10.875rem] opacity-0'
-                />
-              </picture>
-              <picture>
-                <source srcSet='/images/logo-text.webp' type='image/webp' />
-                <img
-                  data-logo-text
-                  srcSet='/images/logo-text.png'
-                  alt='새로운 당근 로고 텍스트'
-                  className='absolute left-0 top-0 h-[8.4375rem] w-[15.5rem] min-w-[15.5rem] -translate-y-12 opacity-0'
-                />
-              </picture>
-            </div>
-            <div
-              data-intro-desc
-              className='absolute bottom-[25%] left-1/2 -translate-x-1/2'
-            >
-              <p className='text-center text-4xl font-bold leading-normal'>
-                소개할게요!
-              </p>
-              <p className='text-center text-4xl font-bold leading-normal'>
-                당근마켓의 새 이름, 새 얼굴
-              </p>
-            </div>
-          </section>
-          <section
-            data-section='brand-film'
-            className='absolute inset-0 grid h-screen place-content-center bg-black opacity-0'
-          >
-            <div
-              data-background-image
-              className='absolute h-screen w-screen scale-75 rounded-[60px] bg-slate-600'
-              style={{ zIndex: -1 }}
-            />
-            <div data-content-container>
-              <div className='flex flex-col items-center'>
-                <p className='mb-14 text-6xl font-black text-white'>
-                  함께 사는 방법
-                </p>
-                <button className='rounded-full bg-white px-6 py-3 text-xl font-medium opacity-75'>
-                  브랜드 필름 보기
-                </button>
-              </div>
-
-              <div>
-                <p>근처에 살고 있다는 이유만으로</p>
-                <p>함께 할 수 있는 것들이 많아져요.</p>
-                <button className='text-xl font-medium text-white'>
-                  브랜드 필름 보기
-                </button>
-              </div>
-
-              <div>
-                <p>더 가깝게, 조금은 느슨하게</p>
-                <p>나와 이웃의 연결이 시작될 때</p>
-                <p>우리의 삶은 더 이로워질 거에요.</p>
-                <button className='text-xl font-medium text-white'>
-                  브랜드 필름 보기
-                </button>
-              </div>
-            </div>
-          </section>
-        </div>
+            <p className='text-center text-4xl font-bold leading-normal'>
+              소개할게요!
+            </p>
+            <p className='text-center text-4xl font-bold leading-normal'>
+              당근마켓의 새 이름, 새 얼굴
+            </p>
+          </div>
+          <div
+            data-logo-fade-effect
+            className='absolute inset-0 bg-black opacity-0'
+          />
+        </section>
       </div>
-      <section className='h-[3000px]'></section>
+
+      <div data-scroll-container='brand-film' className='h-[3000px]'>
+        <section
+          data-section='brand-film'
+          className='grid h-screen place-content-center bg-black opacity-0'
+        >
+          <div
+            data-background-image
+            className='h-screen w-screen scale-75 rounded-[60px] bg-slate-600 opacity-0'
+          />
+          <div data-content-container>
+            <div className='flex flex-col items-center'>
+              <p className='mb-14 text-6xl font-black text-white'>
+                함께 사는 방법
+              </p>
+              <button className='rounded-full bg-white px-6 py-3 text-xl font-medium opacity-75'>
+                브랜드 필름 보기
+              </button>
+            </div>
+
+            <div>
+              <p>근처에 살고 있다는 이유만으로</p>
+              <p>함께 할 수 있는 것들이 많아져요.</p>
+              <button className='text-xl font-medium text-white'>
+                브랜드 필름 보기
+              </button>
+            </div>
+
+            <div>
+              <p>더 가깝게, 조금은 느슨하게</p>
+              <p>나와 이웃의 연결이 시작될 때</p>
+              <p>우리의 삶은 더 이로워질 거에요.</p>
+              <button className='text-xl font-medium text-white'>
+                브랜드 필름 보기
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <section className='h-[3000px]'>Dummy</section>
     </main>
   )
 }
