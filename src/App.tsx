@@ -82,7 +82,7 @@ function App() {
           pinSpacing: false,
           start: 'top top',
           end: 'bottom top',
-          scrub: true,
+          scrub: 1,
           // markers: true,
         },
       })
@@ -96,11 +96,11 @@ function App() {
           pinSpacing: false,
           start: 'top top',
           end: () => `bottom+=${innerHeight}px bottom`,
-          scrub: true,
-          markers: {
-            startColor: 'green',
-            endColor: 'green',
-          },
+          scrub: 1,
+          // markers: {
+          //   startColor: 'green',
+          //   endColor: 'green',
+          // },
         },
       })
       .fromTo(
@@ -134,26 +134,49 @@ function App() {
         opacity: 1,
       })
 
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: '[data-scroll-container="brand-film"]',
-        pin: true,
-        pinSpacing: false,
-        start: 'top top',
-        end: () => `bottom+=${innerHeight}px bottom`,
-        onEnter: () => {
-          gsap.set('[data-section="brand-film"]', { opacity: 1 })
+    gsap
+      .timeline({
+        scrollTrigger: {
+          trigger: '[data-scroll-container="brand-film"]',
+          pin: true,
+          pinSpacing: false,
+          start: 'top top',
+          end: () => `bottom+=${innerHeight}px bottom`,
+          onEnter: () => {
+            gsap.set('[data-section="brand-film"]', { opacity: 1 })
+          },
+          onLeaveBack: () => {
+            gsap.set('[data-section="brand-film"]', { opacity: 0 })
+          },
+          scrub: 1,
+          markers: {
+            startColor: 'purple',
+            endColor: 'purple',
+          },
         },
-        onLeaveBack: () => {
-          gsap.set('[data-section="brand-film"]', { opacity: 0 })
+      })
+      .from('[data-entry-fade-in]', {
+        y: 40,
+        opacity: 0,
+        stagger: 0.2,
+      })
+      .to('[data-background-image]', {
+        scale: 1,
+        borderRadius: 0,
+      })
+      .to('[data-background-image]', {
+        scale: 1,
+        borderRadius: 0,
+        filter: 'brightness(0.9)',
+      })
+      .to('[data-brand-film-header]', { opacity: 0 }, '<')
+      .from('[data-brand-film-desc-container]', { y: 20, opacity: 0 })
+      .to('[data-brand-film-desc-first]', {
+        keyframes: {
+          opacity: [1, 1, 1, 1, 0],
         },
-        scrub: true,
-        markers: {
-          startColor: 'purple',
-          endColor: 'purple',
-        },
-      },
-    })
+      })
+      .from('[data-brand-film-desc-second]', { y: 20, opacity: 0 })
   })
 
   return (
@@ -253,34 +276,53 @@ function App() {
       <div data-scroll-container='brand-film' className='h-[3000px]'>
         <section
           data-section='brand-film'
-          className='grid h-screen place-content-center bg-black opacity-0'
+          className='relative grid h-screen place-content-center bg-black opacity-0'
         >
           <div
             data-background-image
-            className='h-screen w-screen scale-75 rounded-[60px] bg-slate-600 opacity-0'
+            data-entry-fade-in
+            className='opacity-1 absolute inset-0 scale-75 rounded-[60px] bg-slate-600 brightness-100'
           />
-          <div data-content-container>
-            <div className='flex flex-col items-center'>
-              <p className='mb-14 text-6xl font-black text-white'>
+          <div className='absolute inset-0 m-auto grid max-w-[68.75rem] items-center'>
+            <header
+              data-brand-film-header
+              className='absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center'
+            >
+              <h2
+                data-entry-fade-in
+                className='mb-14 text-6xl font-black text-white'
+              >
                 함께 사는 방법
-              </p>
-              <button className='rounded-full bg-white px-6 py-3 text-xl font-medium opacity-75'>
+              </h2>
+              <button
+                data-entry-fade-in
+                className='rounded-full bg-white px-6 py-3 text-xl font-medium opacity-75'
+              >
                 브랜드 필름 보기
               </button>
-            </div>
+            </header>
 
-            <div>
-              <p>근처에 살고 있다는 이유만으로</p>
-              <p>함께 할 수 있는 것들이 많아져요.</p>
-              <button className='text-xl font-medium text-white'>
-                브랜드 필름 보기
-              </button>
-            </div>
-
-            <div>
-              <p>더 가깝게, 조금은 느슨하게</p>
-              <p>나와 이웃의 연결이 시작될 때</p>
-              <p>우리의 삶은 더 이로워질 거에요.</p>
+            <div
+              data-brand-film-desc-container
+              className='absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 justify-between'
+            >
+              <div className='relative grow text-[2.5rem] font-black leading-[3.5rem] text-white'>
+                <div
+                  data-brand-film-desc-first
+                  className='absolute -translate-y-1/2'
+                >
+                  <p>근처에 살고 있다는 이유만으로</p>
+                  <p>함께 할 수 있는 것들이 많아져요.</p>
+                </div>
+                <div
+                  data-brand-film-desc-second
+                  className='absolute -translate-y-1/2'
+                >
+                  <p className='mb-8'>더 가깝게, 조금은 느슨하게</p>
+                  <p>나와 이웃의 연결이 시작될 때</p>
+                  <p>우리의 삶은 더 이로워질 거에요.</p>
+                </div>
+              </div>
               <button className='text-xl font-medium text-white'>
                 브랜드 필름 보기
               </button>
