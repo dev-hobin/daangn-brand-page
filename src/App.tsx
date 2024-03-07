@@ -1,6 +1,7 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { useEffect } from 'react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -8,9 +9,18 @@ const scroller = (name: string) => `[data-scroller=${name}]`
 const section = (name: string) => `[data-section=${name}]`
 const text = (name: string) => `[data-text=${name}]`
 
-const introAnimation = () => {
+const introAnimation = ({
+  onStart,
+  onComplete,
+}: {
+  onStart?: () => void
+  onComplete?: () => void
+} = {}) => {
   const tl = gsap
-    .timeline()
+    .timeline({
+      onStart: onStart,
+      onComplete: onComplete,
+    })
     .from('[data-question] [data-letter]', {
       visibility: 'hidden',
       position: 'absolute',
@@ -43,8 +53,22 @@ const introAnimation = () => {
 }
 
 function App() {
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      window.scrollTo(0, 0)
+    }
+  }, [])
+
   useGSAP(() => {
-    introAnimation()
+    introAnimation({
+      onStart: () => {
+        document.body.style.overflow = 'hidden'
+      },
+      onComplete: () => {
+        document.body.style.overflow = 'auto'
+        gsap.matchMediaRefresh()
+      },
+    })
 
     new ScrollTrigger({
       trigger: scroller('intro'),
