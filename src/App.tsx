@@ -8,8 +8,44 @@ const scroller = (name: string) => `[data-scroller=${name}]`
 const section = (name: string) => `[data-section=${name}]`
 const text = (name: string) => `[data-text=${name}]`
 
+const introAnimation = () => {
+  const tl = gsap
+    .timeline()
+    .from('[data-question] [data-letter]', {
+      visibility: 'hidden',
+      position: 'absolute',
+      ease: 'power3.out',
+      stagger: 0.15,
+    })
+    .to(
+      '[data-question]',
+      {
+        yPercent: -50,
+        opacity: 0,
+        ease: 'power3.inOut',
+      },
+      '+=1',
+    )
+    .from(
+      '[data-answer] [data-letter]',
+      {
+        opacity: 0,
+        yPercent: 100,
+        stagger: {
+          amount: 0.1,
+        },
+        ease: 'back.out(1.7)',
+      },
+      '-=25%',
+    )
+
+  return tl
+}
+
 function App() {
   useGSAP(() => {
+    introAnimation()
+
     new ScrollTrigger({
       trigger: scroller('intro'),
       animation: gsap.to(section('intro'), { opacity: 0 }),
@@ -100,7 +136,20 @@ function App() {
           data-section='intro'
           className='grid h-screen items-center bg-red-100'
         >
-          <div className='text-center text-8xl font-black'>인트로</div>
+          <h1 className='relative flex flex-col items-center overflow-hidden py-12 text-8xl font-black'>
+            <div data-question className='absolute inset-x-0 text-center'>
+              <span data-letter>당</span>
+              <span data-letter>근</span>
+              <span data-letter>이</span>
+              <span data-letter>세</span>
+              <span data-letter>요</span>
+              <span>?</span>
+            </div>
+            <div data-answer className='flex'>
+              <span data-letter>네!</span>
+              <span data-letter>&nbsp;당근이에요</span>
+            </div>
+          </h1>
         </section>
       </div>
       <div data-scroller='balloons'>
