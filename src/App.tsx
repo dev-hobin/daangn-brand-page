@@ -93,6 +93,53 @@ const scrollGuideAnimation = () => {
   return tl
 }
 
+const newLogoScrollAnimation = (
+  scroller: string,
+  scalingFactor: `${number}/${number}` = '1/1',
+) => {
+  const selectAll = gsap.utils.selector(scroller)
+  const [logo, image, text, description] = selectAll('[data-new-logo]')
+
+  const [top, bottom] = scalingFactor.split('/').map(Number)
+
+  const duration = top
+  const delay = bottom - top
+
+  const tl = gsap
+    .timeline()
+    .duration(duration)
+    .fromTo(
+      image,
+      {
+        opacity: 0,
+        translateX: '-50%',
+        translateY: '-50%',
+      },
+      { opacity: 1 },
+    )
+    .to(image, { scale: 0.7 })
+    .to(
+      logo,
+      {
+        translateX: '-8.4375rem',
+        translateY: '-6.25rem',
+      },
+      '<',
+    )
+    .to(
+      text,
+      {
+        opacity: 1,
+        translateX: '5.5rem',
+      },
+      '-=80%',
+    )
+    .from(description, { y: '1rem', opacity: 0 })
+    .to(logo, { duration: delay })
+
+  return tl
+}
+
 function App() {
   useEffect(() => {
     window.onbeforeunload = () => {
@@ -132,13 +179,14 @@ function App() {
 
     new ScrollTrigger({
       trigger: scroller('new-logo'),
+      animation: newLogoScrollAnimation(scroller('new-logo'), '2/3'),
       pin: true,
       pinSpacing: false,
       scrub: 1,
       start: 'top top',
       // 위로 포지션 끌어올린 크기 innerHeight + brand-film 영역과 겹치는 부분 innerHeight
       end: () => `bottom+=${innerHeight * 2}px top`,
-      // markers: true,
+      markers: true,
     })
 
     new ScrollTrigger({
@@ -257,9 +305,39 @@ function App() {
         <div data-scroller='new-logo'>
           <section
             data-section='new-logo'
-            className='grid h-screen items-center bg-orange-400'
+            className='relative grid h-screen place-content-center'
           >
-            <div className='text-center text-8xl font-black'>새로운 로고</div>
+            <div data-new-logo='logo' className='relative flex items-center'>
+              <picture>
+                <source srcSet='/images/logo-img.webp' type='image/webp' />
+                <img
+                  data-new-logo='image'
+                  src='/images/logo-img.png'
+                  alt='새로운 당근 로고 이미지'
+                  className='absolute left-0 top-0 w-[10.875rem] min-w-[10.875rem] opacity-0'
+                />
+              </picture>
+              <picture>
+                <source srcSet='/images/logo-text.webp' type='image/webp' />
+                <img
+                  data-new-logo='text'
+                  srcSet='/images/logo-text.png'
+                  alt='새로운 당근 로고 텍스트'
+                  className='absolute left-0 top-0 h-[8.4375rem] w-[15.5rem] min-w-[15.5rem] -translate-y-12 opacity-0'
+                />
+              </picture>
+            </div>
+            <div
+              data-new-logo='description'
+              className='absolute bottom-[25%] left-1/2 -translate-x-1/2'
+            >
+              <p className='text-center text-4xl font-bold leading-normal'>
+                소개할게요!
+              </p>
+              <p className='text-center text-4xl font-bold leading-normal'>
+                당근마켓의 새 이름, 새 얼굴
+              </p>
+            </div>
           </section>
         </div>
       </div>
