@@ -261,7 +261,7 @@ function App() {
   return (
     <main>
       <div data-scroller='intro'>
-        <section data-section='intro' className='grid h-screen items-center'>
+        <section data-section='intro' className='grid h-dvh items-center'>
           <h1 className='relative flex flex-col items-center overflow-hidden py-12 text-8xl font-black'>
             <div data-question className='absolute inset-x-0 text-center'>
               <span data-letter>당</span>
@@ -310,7 +310,7 @@ function App() {
         <div data-scroller='new-logo'>
           <section
             data-section='new-logo'
-            className='relative grid h-screen place-content-center'
+            className='relative grid h-dvh place-content-center'
           >
             <div data-new-logo='logo' className='relative flex items-center'>
               <picture>
@@ -348,7 +348,7 @@ function App() {
       </div>
       <div data-positioner='balloons' className='absolute inset-x-0 top-0'>
         <div data-scroller='balloons'>
-          <section data-section='balloons' className='relative z-10 h-[100vh]'>
+          <section data-section='balloons' className='relative z-10 h-dvh'>
             <Player
               lottieRef={(item) => {
                 lottieRef.current = item
@@ -362,7 +362,7 @@ function App() {
       <div data-scroller='brand-film'>
         <section
           data-section='brand-film'
-          className='grid h-screen items-center bg-lime-100 opacity-50'
+          className='grid h-dvh items-center bg-lime-100 opacity-50'
         >
           <div
             data-text='brand-film'
@@ -376,7 +376,7 @@ function App() {
       <div className='relative'>
         <section
           data-section='daangn-moments'
-          className='absolute inset-x-0 -top-[100vh] z-10 grid h-[150vh] items-center bg-cyan-100'
+          className='absolute inset-x-0 -top-[100vh] z-10 grid h-[150dvh] items-center bg-cyan-100'
         >
           <div className='text-center text-8xl font-black'>당근의 순간들</div>
         </section>
@@ -385,7 +385,7 @@ function App() {
       <div data-scroller='community'>
         <section
           data-section='community'
-          className='grid h-screen items-center bg-blue-100'
+          className='grid h-dvh items-center bg-blue-100'
         >
           <div
             data-text='community'
@@ -398,7 +398,7 @@ function App() {
       <div data-scroller='ending'>
         <section
           data-section='ending'
-          className='grid h-screen items-center bg-pink-100'
+          className='grid h-dvh items-center bg-pink-100'
         >
           <div className='text-center text-8xl font-black'>당근에서 만나요</div>
         </section>
