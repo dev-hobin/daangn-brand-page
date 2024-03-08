@@ -1,9 +1,11 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-import { useEffect } from 'react'
+import { AnimationItem } from 'lottie-web'
+import { Player } from '@lottiefiles/react-lottie-player'
+import { useEffect, useRef } from 'react'
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, useGSAP)
 
 const scroller = (name: string) => `[data-scroller=${name}]`
 const section = (name: string) => `[data-section=${name}]`
@@ -140,7 +142,15 @@ const newLogoScrollAnimation = (
   return tl
 }
 
+// 노란색 - #FFF1AA
+// 주황색 - #FF6F10
+// 초록색 - #A5E999
+// 분홍색 - #FFCAF2
+// 하늘색 - #A3D8FF
+
 function App() {
+  const lottieRef = useRef<AnimationItem | null>(null)
+
   useEffect(() => {
     window.onbeforeunload = () => {
       window.scrollTo(0, 0)
@@ -168,14 +178,21 @@ function App() {
       // markers: true,
     })
 
-    // new ScrollTrigger({
-    //   trigger: scroller('balloons'),
-    //   // pin: true,
-    //   // pinSpacing: false,
-    //   scrub: 1,
-    //   start: 'top top',
-    //   // markers: true,
-    // })
+    new ScrollTrigger({
+      trigger: scroller('balloons'),
+      pin: true,
+      pinSpacing: false,
+      scrub: 1,
+      start: 'top top',
+      end: () => `bottom+=${innerHeight / 2}px top`,
+      onUpdate: (self) => {
+        if (!lottieRef.current) return
+        lottieRef.current.goToAndStop(
+          self.progress * lottieRef.current.totalFrames,
+          true,
+        )
+      },
+    })
 
     new ScrollTrigger({
       trigger: scroller('new-logo'),
@@ -184,9 +201,8 @@ function App() {
       pinSpacing: false,
       scrub: 1,
       start: 'top top',
-      // 위로 포지션 끌어올린 크기 innerHeight + brand-film 영역과 겹치는 부분 innerHeight
-      end: () => `bottom+=${innerHeight * 2}px top`,
-      markers: true,
+      // brand-film 영역과 겹치는 부분 innerHeight
+      end: () => `bottom+=${innerHeight}px top`,
     })
 
     new ScrollTrigger({
@@ -245,10 +261,7 @@ function App() {
   return (
     <main>
       <div data-scroller='intro'>
-        <section
-          data-section='intro'
-          className='grid h-screen items-center bg-red-100'
-        >
+        <section data-section='intro' className='grid h-screen items-center'>
           <h1 className='relative flex flex-col items-center overflow-hidden py-12 text-8xl font-black'>
             <div data-question className='absolute inset-x-0 text-center'>
               <span data-letter>당</span>
@@ -293,15 +306,7 @@ function App() {
           </aside>
         </section>
       </div>
-      <div data-scroller='balloons'>
-        <section
-          data-section='balloons'
-          className='relative z-10 grid h-[200vh] items-center bg-orange-100 opacity-50'
-        >
-          <div className='text-center text-8xl font-black'>풍선 효과</div>
-        </section>
-      </div>
-      <div data-positioner='new-logo' className='relative -top-[100vh]'>
+      <div data-positioner='new-logo'>
         <div data-scroller='new-logo'>
           <section
             data-section='new-logo'
@@ -338,6 +343,19 @@ function App() {
                 당근마켓의 새 이름, 새 얼굴
               </p>
             </div>
+          </section>
+        </div>
+      </div>
+      <div data-positioner='balloons' className='absolute inset-x-0 top-0'>
+        <div data-scroller='balloons'>
+          <section data-section='balloons' className='relative z-10 h-[100vh]'>
+            <Player
+              lottieRef={(item) => {
+                lottieRef.current = item
+              }}
+              src='/heart.json'
+              className='w-full'
+            />
           </section>
         </div>
       </div>
