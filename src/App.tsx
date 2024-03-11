@@ -216,13 +216,59 @@ function App() {
         .to(section('brand-film'), {
           backgroundColor: 'black',
           opacity: 1,
-          duration: 2,
+          duration: 0.5,
         })
-        .to(text('brand-film'), { color: 'white' }, '<')
-        .to(section('brand-film'), {
-          duration: 1,
-        }),
-      // markers: true,
+        .add(
+          gsap
+            .timeline()
+            .to(`${section('brand-film')} [data-video]`, {
+              opacity: 0.6,
+              y: 0,
+            })
+            .to(`${section('brand-film')} [data-staggers]`, {
+              opacity: 1,
+              y: 0,
+              stagger: 0.1,
+            })
+            .to(`${section('brand-film')} [data-video]`, {
+              scale: 1,
+              borderRadius: 0,
+            })
+            .to(`${section('brand-film')} [data-video]`, {
+              opacity: 0.5,
+            })
+            .to(
+              `${section('brand-film')} [data-title-container]`,
+              { opacity: 0 },
+              '<',
+            )
+            .to(`${section('brand-film')} [data-content-container]`, {
+              y: 0,
+              opacity: 1,
+            })
+            .to(
+              `${section('brand-film')} [data-content-container] [data-first-content]`,
+              { duration: 1 },
+            )
+            .to(
+              `${section('brand-film')} [data-content-container] [data-first-content]`,
+              { opacity: 0 },
+            )
+            .to(
+              `${section('brand-film')} [data-content-container] [data-second-content]`,
+              { y: 0, opacity: 1 },
+            )
+            .to(
+              `${section('brand-film')} [data-content-container] [data-second-content]`,
+              { duration: 1 },
+            ),
+        )
+        .to(section('brand-film'), { duration: 2.5 }), // total duration: 2.5가 나와야 함
+      // .to(text('brand-film'), { color: 'white' }, '<')
+      // .to(section('brand-film'), {
+      //   duration: 1,
+      // }),
+      markers: true,
     })
 
     // new ScrollTrigger({
@@ -362,13 +408,87 @@ function App() {
       <div data-scroller='brand-film'>
         <section
           data-section='brand-film'
-          className='grid h-dvh items-center bg-lime-100 opacity-50'
+          className='relative grid h-dvh items-center'
         >
-          <div
-            data-text='brand-film'
-            className='text-center text-8xl font-black'
+          <video
+            data-video
+            autoPlay
+            loop
+            playsInline
+            muted
+            className='absolute inset-0 h-full w-full translate-y-[10dvh] scale-75 rounded-[3.75rem] object-cover opacity-0'
           >
-            브랜드 필름
+            <source src='/videos/campaign_preview_pc.webm' type='video/webm' />
+          </video>
+
+          <div
+            data-title-container
+            className='absolute inset-x-0 z-10 mx-auto max-w-[68.75rem]'
+          >
+            <div className='flex flex-col items-center'>
+              <h2
+                data-staggers
+                className='h-[6.375rem] translate-y-[5dvh] opacity-0'
+              >
+                <picture>
+                  <source
+                    srcSet='/images/campaign-title-pc.webp'
+                    type='image/webp'
+                  />
+                  <img
+                    src='/images/campaign-title-pc.webp'
+                    alt='함께 사는 방법'
+                    className='h-full w-auto'
+                  />
+                </picture>
+              </h2>
+              <button
+                data-staggers
+                className='mt-[2rem] translate-y-[5dvh] text-2xl font-black text-white opacity-0'
+              >
+                브랜드 필름 보기
+              </button>
+            </div>
+          </div>
+
+          <div
+            data-content-container
+            className='absolute inset-x-0 z-10 mx-auto max-w-[68.75rem] translate-y-[5dvh] opacity-0'
+          >
+            <div className='flex items-center justify-between'>
+              <div className='relative'>
+                <div
+                  data-first-content
+                  className='absolute left-0 top-1/2 -translate-y-1/2'
+                >
+                  <p className='text-[2.5rem] font-black leading-[3.75rem] text-white'>
+                    근처에 살고 있다는 이유만으로
+                  </p>
+                  <p className='text-[2.5rem] font-black leading-[3.75rem] text-white'>
+                    함께 할 수 있는 것들이 많아져요
+                  </p>
+                </div>
+                <div
+                  data-second-content
+                  className='translate-y-[5dvh] opacity-0'
+                >
+                  <p className='mb-[2rem] text-[2.5rem] font-black leading-[3.75rem] text-white'>
+                    더 가깝게, 조금은 느슨하게
+                  </p>
+
+                  <p className='text-[2.5rem] font-black leading-[3.75rem] text-white'>
+                    나와 이웃의 연결이 시작될 때
+                  </p>
+                  <p className='text-[2.5rem] font-black leading-[3.75rem] text-white'>
+                    우리의 삶은 더 이로워질 거예요.
+                  </p>
+                </div>
+              </div>
+
+              <button className='text-2xl font-black text-white'>
+                브랜드 필름 보기
+              </button>
+            </div>
           </div>
         </section>
       </div>
