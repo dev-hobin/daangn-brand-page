@@ -264,21 +264,7 @@ function App() {
             ),
         )
         .to(section('brand-film'), { duration: 2.5 }), // total duration: 2.5가 나와야 함
-      // .to(text('brand-film'), { color: 'white' }, '<')
-      // .to(section('brand-film'), {
-      //   duration: 1,
-      // }),
-
-      onUpdate: (self) => {
-        if (self.direction === 1) {
-          self.vars.scrub = 1
-        } else {
-          console.log('HERE')
-          self.vars.scrub = true
-        }
-      },
-      preventOverlaps: true,
-      markers: true,
+      // markers: true,
     })
 
     // new ScrollTrigger({
@@ -293,14 +279,14 @@ function App() {
     new ScrollTrigger({
       trigger: scroller('community'),
       pin: true,
-      pinSpacing: true,
+      pinSpacing: false,
       scrub: true,
       start: 'top top',
-      end: `bottom+=${innerHeight * 2} top`,
+      end: () => `top+=${2 * innerHeight}px top`,
       animation: gsap
         .timeline()
         .to(section('community'), { duration: 1 })
-        .to(text('community'), { scale: 0.5, duration: 5 }),
+        .to(text('community'), { scale: 0.5, duration: 1 }),
       // markers: true,
     })
 
@@ -506,10 +492,10 @@ function App() {
         </section>
       </div>
 
-      <div className='relative'>
+      <div className='relative -top-[100dvh] z-10'>
         <section
           data-section='daangn-moments'
-          className='absolute inset-x-0 -top-[100vh] z-10 min-h-screen bg-white'
+          className='min-h-[150dvh] bg-white opacity-50'
         >
           <h2>동네에서 만나는{'\n'}당근의 순간들</h2>
           <p>당근하는 순간이 많아질수록</p>
@@ -517,19 +503,22 @@ function App() {
         </section>
       </div>
 
-      <div data-scroller='community'>
-        <section
-          data-section='community'
-          className='grid h-dvh items-center bg-blue-100'
-        >
-          <div
-            data-text='community'
-            className='text-center text-8xl font-black'
+      <div className='relative -top-[200dvh]'>
+        <div data-scroller='community'>
+          <section
+            data-section='community'
+            className='grid h-dvh items-center bg-blue-100'
           >
-            지역생활 커뮤니티
-          </div>
-        </section>
+            <div
+              data-text='community'
+              className='text-center text-8xl font-black'
+            >
+              지역생활 커뮤니티
+            </div>
+          </section>
+        </div>
       </div>
+
       <div data-scroller='ending'>
         <section
           data-section='ending'
