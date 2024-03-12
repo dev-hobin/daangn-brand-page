@@ -142,12 +142,6 @@ const newLogoScrollAnimation = (
   return tl
 }
 
-// 노란색 - #FFF1AA
-// 주황색 - #FF6F10
-// 초록색 - #A5E999
-// 분홍색 - #FFCAF2
-// 하늘색 - #A3D8FF
-
 function App() {
   const lottieRef = useRef<AnimationItem | null>(null)
 
@@ -159,13 +153,13 @@ function App() {
 
   useGSAP(() => {
     introAnimation({
-      onStart: () => {
-        document.body.style.overflow = 'hidden'
-      },
-      onComplete: () => {
-        document.body.style.overflow = 'auto'
-        gsap.matchMediaRefresh()
-      },
+      // onStart: () => {
+      //   document.body.style.overflow = 'hidden'
+      // },
+      // onComplete: () => {
+      //   document.body.style.overflow = 'auto'
+      //   gsap.matchMediaRefresh()
+      // },
     }).add(scrollGuideAnimation())
 
     new ScrollTrigger({
@@ -495,11 +489,27 @@ function App() {
       <div className='relative -top-[100dvh] z-10'>
         <section
           data-section='daangn-moments'
-          className='min-h-[150dvh] bg-white opacity-50'
+          className='min-h-[150dvh] bg-white py-[11.875rem]'
         >
-          <h2>동네에서 만나는{'\n'}당근의 순간들</h2>
-          <p>당근하는 순간이 많아질수록</p>
-          <p>우리는 함께 사는 방법을 알게 될 거예요.</p>
+          <div className='mx-auto flex max-w-[68.75rem] flex-col items-center'>
+            <h2 className='whitespace-pre-line text-center text-[3.75rem] font-bold leading-tight'>
+              동네에서 만나는{'\n'}당근의 순간들
+            </h2>
+            <div className='mt-6 text-center text-[1.375rem] font-bold text-[#4d5159]'>
+              <p>당근하는 순간이 많아질수록</p>
+              <p>우리는 함께 사는 방법을 알게 될 거예요.</p>
+            </div>
+
+            <div className='mt-[5.625rem] grid grid-cols-[repeat(2,1fr)] grid-rows-[1fr_0.5fr_repeat(2,1fr)] gap-[1rem]'>
+              <div className='h-[30rem] w-[30rem] bg-red-50'>1</div>
+              <div className='bg-teal-50'>2</div>
+              <div className='row-span-2 bg-yellow-50'>3</div>
+              <div className='bg-blue-50'>4</div>
+              <div className='bg-green-50'>5</div>
+              <div className='bg-stone-50'>6</div>
+              <div className='bg-orange-50'>7</div>
+            </div>
+          </div>
         </section>
       </div>
 
