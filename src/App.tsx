@@ -173,7 +173,7 @@ function App() {
       animation: gsap.to(section('intro'), { opacity: 0 }),
       pin: true,
       pinSpacing: false,
-      scrub: 1,
+      scrub: true,
       start: 'top top',
       // markers: true,
     })
@@ -182,7 +182,7 @@ function App() {
       trigger: scroller('balloons'),
       pin: true,
       pinSpacing: false,
-      scrub: 1,
+      scrub: true,
       start: 'top top',
       end: () => `bottom+=${innerHeight / 2}px top`,
       onUpdate: (self) => {
@@ -199,7 +199,7 @@ function App() {
       animation: newLogoScrollAnimation(scroller('new-logo'), '2/3'),
       pin: true,
       pinSpacing: false,
-      scrub: 1,
+      scrub: true,
       start: 'top top',
       // brand-film 영역과 겹치는 부분 innerHeight
       end: () => `bottom+=${innerHeight}px top`,
@@ -208,7 +208,7 @@ function App() {
     new ScrollTrigger({
       trigger: scroller('brand-film'),
       pin: true,
-      scrub: 1,
+      scrub: true,
       start: 'top top',
       end: () => `bottom+=${innerHeight * 2}px top`,
       animation: gsap
@@ -268,6 +268,16 @@ function App() {
       // .to(section('brand-film'), {
       //   duration: 1,
       // }),
+
+      onUpdate: (self) => {
+        if (self.direction === 1) {
+          self.vars.scrub = 1
+        } else {
+          console.log('HERE')
+          self.vars.scrub = true
+        }
+      },
+      preventOverlaps: true,
       markers: true,
     })
 
@@ -275,7 +285,7 @@ function App() {
     //   trigger: scroller('daangn-moments'),
     //   pin: true,
     //   pinSpacing: false,
-    //   scrub: 1,
+    //   scrub: true,
     //   start: 'top top',
     //   // markers: true,
     // })
@@ -284,7 +294,7 @@ function App() {
       trigger: scroller('community'),
       pin: true,
       pinSpacing: true,
-      scrub: 1,
+      scrub: true,
       start: 'top top',
       end: `bottom+=${innerHeight * 2} top`,
       animation: gsap
@@ -298,7 +308,7 @@ function App() {
     //   trigger: scroller('ending'),
     //   pin: true,
     //   pinSpacing: false,
-    //   scrub: 1,
+    //   scrub: true,
     //   start: 'top top',
     //   // markers: true,
     // })
@@ -399,8 +409,11 @@ function App() {
               lottieRef={(item) => {
                 lottieRef.current = item
               }}
-              src='/heart.json'
-              className='w-full'
+              src='/lotties/bubble_up_desktop.json'
+              rendererSettings={{
+                preserveAspectRatio: 'xMidYMid slice',
+              }}
+              className='h-dvh w-full'
             />
           </section>
         </div>
@@ -496,9 +509,11 @@ function App() {
       <div className='relative'>
         <section
           data-section='daangn-moments'
-          className='absolute inset-x-0 -top-[100vh] z-10 grid h-[150dvh] items-center bg-cyan-100'
+          className='absolute inset-x-0 -top-[100vh] z-10 min-h-screen bg-white'
         >
-          <div className='text-center text-8xl font-black'>당근의 순간들</div>
+          <h2>동네에서 만나는{'\n'}당근의 순간들</h2>
+          <p>당근하는 순간이 많아질수록</p>
+          <p>우리는 함께 사는 방법을 알게 될 거예요.</p>
         </section>
       </div>
 
