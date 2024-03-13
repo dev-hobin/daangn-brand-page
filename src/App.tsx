@@ -6,6 +6,7 @@ import { Player } from '@lottiefiles/react-lottie-player'
 import { useEffect, useRef } from 'react'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
+gsap.defaults({ duration: 1 })
 
 const scroller = (name: string) => `[data-scroller=${name}]`
 const section = (name: string) => `[data-section=${name}]`
@@ -97,19 +98,14 @@ const scrollGuideAnimation = () => {
 
 const newLogoScrollAnimation = (
   scroller: string,
-  scalingFactor: `${number}/${number}` = '1/1',
+  fastForwardRate: `${number}%` = '0%',
 ) => {
   const selectAll = gsap.utils.selector(scroller)
   const [logo, image, text, description] = selectAll('[data-new-logo]')
-
-  const [top, bottom] = scalingFactor.split('/').map(Number)
-
-  const duration = top
-  const delay = bottom - top
+  const rate = Number(fastForwardRate.slice(0, -1))
 
   const tl = gsap
     .timeline()
-    .duration(duration)
     .fromTo(
       image,
       {
@@ -137,9 +133,9 @@ const newLogoScrollAnimation = (
       '-=80%',
     )
     .from(description, { y: '1rem', opacity: 0 })
-    .to(logo, { duration: delay })
 
-  return tl
+  const delay = (rate * tl.totalDuration()) / (100 - rate)
+  return tl.add(gsap.to(logo, { duration: delay }))
 }
 
 function App() {
@@ -178,7 +174,8 @@ function App() {
       pinSpacing: false,
       scrub: true,
       start: 'top top',
-      end: () => `bottom+=${innerHeight / 2}px top`,
+      // 1.5 스크린 크기만큼 애니메이션 진행
+      end: () => `top+=${innerHeight * 1.5}px top`,
       onUpdate: (self) => {
         if (!bubbleLottieRef.current) return
         bubbleLottieRef.current.goToAndStop(
@@ -190,13 +187,14 @@ function App() {
 
     new ScrollTrigger({
       trigger: scroller('new-logo'),
-      animation: newLogoScrollAnimation(scroller('new-logo'), '2/3'),
+      animation: newLogoScrollAnimation(scroller('new-logo'), '50%'),
       pin: true,
       pinSpacing: false,
       scrub: true,
       start: 'top top',
-      // brand-film 영역과 겹치는 부분 innerHeight
-      end: () => `bottom+=${innerHeight}px top`,
+      markers: true,
+      // brand-film 영역과 겹치는 1 스크린 + 1 스크린 길이만큼 핀 고정
+      end: () => `top+=${innerHeight * 2}px top`,
     })
 
     new ScrollTrigger({
@@ -401,7 +399,7 @@ function App() {
       <div data-scroller='brand-film'>
         <section
           data-section='brand-film'
-          className='relative grid h-dvh items-center'
+          className='relative grid h-dvh items-center bg-slate-400 opacity-25'
         >
           <video
             data-video
