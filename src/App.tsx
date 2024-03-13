@@ -143,7 +143,7 @@ const newLogoScrollAnimation = (
 }
 
 function App() {
-  const lottieRef = useRef<AnimationItem | null>(null)
+  const bubbleLottieRef = useRef<AnimationItem | null>(null)
 
   useEffect(() => {
     window.onbeforeunload = () => {
@@ -180,9 +180,9 @@ function App() {
       start: 'top top',
       end: () => `bottom+=${innerHeight / 2}px top`,
       onUpdate: (self) => {
-        if (!lottieRef.current) return
-        lottieRef.current.goToAndStop(
-          self.progress * lottieRef.current.totalFrames,
+        if (!bubbleLottieRef.current) return
+        bubbleLottieRef.current.goToAndStop(
+          self.progress * bubbleLottieRef.current.totalFrames,
           true,
         )
       },
@@ -387,7 +387,7 @@ function App() {
           <section data-section='balloons' className='relative z-10 h-dvh'>
             <Player
               lottieRef={(item) => {
-                lottieRef.current = item
+                bubbleLottieRef.current = item
               }}
               src='/lotties/bubble_up_desktop.json'
               rendererSettings={{
@@ -500,14 +500,84 @@ function App() {
               <p>우리는 함께 사는 방법을 알게 될 거예요.</p>
             </div>
 
-            <div className='mt-[5.625rem] grid grid-cols-[repeat(2,1fr)] grid-rows-[1fr_0.5fr_repeat(2,1fr)] gap-[1rem]'>
-              <div className='h-[30rem] w-[30rem] bg-red-50'>1</div>
-              <div className='bg-teal-50'>2</div>
-              <div className='row-span-2 bg-yellow-50'>3</div>
-              <div className='bg-blue-50'>4</div>
-              <div className='bg-green-50'>5</div>
-              <div className='bg-stone-50'>6</div>
-              <div className='bg-orange-50'>7</div>
+            <div className='mt-[5.625rem] grid max-w-[60.625rem] grid-cols-[repeat(2,1fr)] grid-rows-[1fr_0.5fr_repeat(2,1fr)] gap-[1rem]'>
+              <div>
+                <Player
+                  autoplay
+                  loop
+                  src='/lotties/moment_one.json'
+                  rendererSettings={{
+                    preserveAspectRatio: 'xMidYMid slice',
+                  }}
+                  className='h-full w-full'
+                />
+              </div>
+              <div>
+                <video
+                  autoPlay
+                  loop
+                  playsInline
+                  muted
+                  className='h-full w-full'
+                >
+                  <source src='/videos/moment_two.mp4' type='video/mp4' />
+                </video>
+              </div>
+              <div className='row-span-2'>
+                <video
+                  autoPlay
+                  loop
+                  playsInline
+                  muted
+                  className='h-full w-full'
+                >
+                  <source src='/videos/moment_three.mp4' type='video/mp4' />
+                </video>
+              </div>
+              <div>
+                <Player
+                  autoplay
+                  loop
+                  src='/lotties/moment_four.json'
+                  rendererSettings={{
+                    preserveAspectRatio: 'xMidYMid slice',
+                  }}
+                  className='h-full w-full'
+                />
+              </div>
+              <div>
+                <Player
+                  autoplay
+                  loop
+                  src='/lotties/moment_five.json'
+                  rendererSettings={{
+                    preserveAspectRatio: 'xMidYMid slice',
+                  }}
+                  className='h-full w-full'
+                />
+              </div>
+              <div>
+                <Player
+                  autoplay
+                  loop
+                  src='/lotties/moment_six.json'
+                  rendererSettings={{
+                    preserveAspectRatio: 'xMidYMid slice',
+                  }}
+                  className='h-full w-full'
+                />
+              </div>
+              <div>
+                <video
+                  autoPlay
+                  loop
+                  playsInline
+                  muted
+                  className='h-full w-full'
+                >
+                  <source src='/videos/moment_seven.mp4' type='video/mp4' />
+                </video>
+              </div>
             </div>
           </div>
         </section>
