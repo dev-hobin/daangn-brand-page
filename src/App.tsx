@@ -6,11 +6,22 @@ import { Player } from '@lottiefiles/react-lottie-player'
 import { useEffect, useRef } from 'react'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
-gsap.defaults({ duration: 1 })
+
+const PAGE_UNIT = 1
 
 const scroller = (name: string) => `[data-scroller=${name}]`
 const section = (name: string) => `[data-section=${name}]`
 const text = (name: string) => `[data-text=${name}]`
+
+const fastForward = (
+  timeline: gsap.core.Timeline,
+  ratio: `${number}/${number}` = '0/1',
+) => {
+  const [top, bottom] = ratio.split('/').map(Number)
+  const totalDuration = timeline.totalDuration()
+  const delay = (top * totalDuration) / (bottom - top)
+  return timeline.add(gsap.to({}, { duration: delay }))
+}
 
 const introAnimation = ({
   onStart,
@@ -96,13 +107,9 @@ const scrollGuideAnimation = () => {
   return tl
 }
 
-const newLogoScrollAnimation = (
-  scroller: string,
-  fastForwardRate: `${number}%` = '0%',
-) => {
+const newLogoScrollAnimation = (scroller: string) => {
   const selectAll = gsap.utils.selector(scroller)
   const [logo, image, text, description] = selectAll('[data-new-logo]')
-  const rate = Number(fastForwardRate.slice(0, -1))
 
   const tl = gsap
     .timeline()
@@ -134,8 +141,50 @@ const newLogoScrollAnimation = (
     )
     .from(description, { y: '1rem', opacity: 0 })
 
-  const delay = (rate * tl.totalDuration()) / (100 - rate)
-  return tl.add(gsap.to(logo, { duration: delay }))
+  return tl
+}
+
+const brandFilmScrollAnimation = (scroller: string) => {
+  const select = gsap.utils.selector(scroller)
+  const brandFilmSection = select(section('brand-film'))
+  const video = select('[data-video]')
+  const titleContainer = select('[data-title-container]')
+  const contentContainer = select('[data-content-container]')
+  const staggers = select('[data-staggers]')
+  const firstContent = select('[data-first-content]')
+  const secondContent = select('[data-second-content]')
+
+  const tl = gsap
+    .timeline()
+    .to(brandFilmSection, {
+      backgroundColor: 'black',
+      opacity: 1,
+    })
+    .to(video, {
+      opacity: 0.6,
+      y: 0,
+    })
+    .to(staggers, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.1,
+    })
+    .to(video, {
+      scale: 1,
+      borderRadius: 0,
+    })
+    .to(video, { opacity: 0.5 })
+    .to(titleContainer, { opacity: 0 }, '<')
+    .to(contentContainer, {
+      y: 0,
+      opacity: 1,
+    })
+    .to(firstContent, {})
+    .to(firstContent, { opacity: 0 })
+    .to(secondContent, { y: 0, opacity: 1 })
+    .to(secondContent, {})
+
+  return tl
 }
 
 function App() {
@@ -174,8 +223,7 @@ function App() {
       pinSpacing: false,
       scrub: true,
       start: 'top top',
-      // 1.5 스크린 크기만큼 애니메이션 진행
-      end: () => `top+=${innerHeight * 1.5}px top`,
+      end: () => `top+=${innerHeight * 1.5 * PAGE_UNIT}px top`,
       onUpdate: (self) => {
         if (!bubbleLottieRef.current) return
         bubbleLottieRef.current.goToAndStop(
@@ -187,14 +235,15 @@ function App() {
 
     new ScrollTrigger({
       trigger: scroller('new-logo'),
-      animation: newLogoScrollAnimation(scroller('new-logo'), '50%'),
+      animation: fastForward(
+        newLogoScrollAnimation(scroller('new-logo')),
+        '1/2',
+      ),
       pin: true,
       pinSpacing: false,
       scrub: true,
       start: 'top top',
-      markers: true,
-      // brand-film 영역과 겹치는 1 스크린 + 1 스크린 길이만큼 핀 고정
-      end: () => `top+=${innerHeight * 2}px top`,
+      end: () => `top+=${innerHeight * 2 * PAGE_UNIT}px top`,
     })
 
     new ScrollTrigger({
@@ -202,61 +251,11 @@ function App() {
       pin: true,
       scrub: true,
       start: 'top top',
-      end: () => `bottom+=${innerHeight * 2}px top`,
-      animation: gsap
-        .timeline()
-        .to(section('brand-film'), {
-          backgroundColor: 'black',
-          opacity: 1,
-          duration: 0.5,
-        })
-        .add(
-          gsap
-            .timeline()
-            .to(`${section('brand-film')} [data-video]`, {
-              opacity: 0.6,
-              y: 0,
-            })
-            .to(`${section('brand-film')} [data-staggers]`, {
-              opacity: 1,
-              y: 0,
-              stagger: 0.1,
-            })
-            .to(`${section('brand-film')} [data-video]`, {
-              scale: 1,
-              borderRadius: 0,
-            })
-            .to(`${section('brand-film')} [data-video]`, {
-              opacity: 0.5,
-            })
-            .to(
-              `${section('brand-film')} [data-title-container]`,
-              { opacity: 0 },
-              '<',
-            )
-            .to(`${section('brand-film')} [data-content-container]`, {
-              y: 0,
-              opacity: 1,
-            })
-            .to(
-              `${section('brand-film')} [data-content-container] [data-first-content]`,
-              { duration: 1 },
-            )
-            .to(
-              `${section('brand-film')} [data-content-container] [data-first-content]`,
-              { opacity: 0 },
-            )
-            .to(
-              `${section('brand-film')} [data-content-container] [data-second-content]`,
-              { y: 0, opacity: 1 },
-            )
-            .to(
-              `${section('brand-film')} [data-content-container] [data-second-content]`,
-              { duration: 1 },
-            ),
-        )
-        .to(section('brand-film'), { duration: 2.5 }), // total duration: 2.5가 나와야 함
-      // markers: true,
+      end: () => `top+=${innerHeight * 6 * PAGE_UNIT}px top`,
+      animation: fastForward(
+        brandFilmScrollAnimation(scroller('brand-film')),
+        '1/6',
+      ),
     })
 
     // new ScrollTrigger({
@@ -399,7 +398,7 @@ function App() {
       <div data-scroller='brand-film'>
         <section
           data-section='brand-film'
-          className='relative grid h-dvh items-center bg-slate-400 opacity-25'
+          className='relative grid h-dvh items-center'
         >
           <video
             data-video
