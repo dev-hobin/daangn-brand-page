@@ -500,7 +500,7 @@ function App() {
               <p>우리는 함께 사는 방법을 알게 될 거예요.</p>
             </div>
 
-            <div className='mt-[5.625rem] grid max-w-[60.625rem] grid-cols-[repeat(2,1fr)] grid-rows-[1fr_0.5fr_repeat(2,1fr)] gap-[1rem]'>
+            <div className='mt-[5.625rem] grid max-w-[60.625rem] grid-flow-row-dense grid-cols-2 grid-rows-[1fr_0.3fr_0.7fr_1fr] content-start gap-[1rem]'>
               <div>
                 <Player
                   autoplay
@@ -509,7 +509,6 @@ function App() {
                   rendererSettings={{
                     preserveAspectRatio: 'xMidYMid slice',
                   }}
-                  className='h-full w-full'
                 />
               </div>
               <div>
@@ -524,13 +523,7 @@ function App() {
                 </video>
               </div>
               <div className='row-span-2'>
-                <video
-                  autoPlay
-                  loop
-                  playsInline
-                  muted
-                  className='h-full w-full'
-                >
+                <video autoPlay loop playsInline muted>
                   <source src='/videos/moment_three.mp4' type='video/mp4' />
                 </video>
               </div>
@@ -542,7 +535,6 @@ function App() {
                   rendererSettings={{
                     preserveAspectRatio: 'xMidYMid slice',
                   }}
-                  className='h-full w-full'
                 />
               </div>
               <div>
@@ -553,7 +545,6 @@ function App() {
                   rendererSettings={{
                     preserveAspectRatio: 'xMidYMid slice',
                   }}
-                  className='h-full w-full'
                 />
               </div>
               <div>
@@ -564,7 +555,6 @@ function App() {
                   rendererSettings={{
                     preserveAspectRatio: 'xMidYMid slice',
                   }}
-                  className='h-full w-full'
                 />
               </div>
               <div>
