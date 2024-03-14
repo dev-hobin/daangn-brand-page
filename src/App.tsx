@@ -1,9 +1,10 @@
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { AnimationItem } from 'lottie-web'
 import { Player } from '@lottiefiles/react-lottie-player'
-import { useEffect, useRef } from 'react'
+import { horizontalLoop } from './utils/horizontalLoop'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -289,6 +290,12 @@ function App() {
     //   start: 'top top',
     //   // markers: true,
     // })
+
+    horizontalLoop(gsap.utils.toArray('[data-gallery-item]'), {
+      repeat: -1,
+      speed: 0.3,
+      paddingRight: 16,
+    })
   })
 
   return (
@@ -590,13 +597,89 @@ function App() {
         <div data-scroller='community'>
           <section
             data-section='community'
-            className='grid h-dvh items-center bg-blue-100'
+            className='grid h-dvh items-center overflow-hidden bg-blue-100'
           >
-            <div
-              data-text='community'
-              className='text-center text-8xl font-black'
-            >
-              지역생활 커뮤니티
+            {/* <h2>
+              가깝고 따뜻한 당신 근처의
+              <br />
+              지역 생활 커뮤니티
+            </h2> */}
+            <div className='grid h-full w-full items-center'>
+              <div data-gallery-container className='flex flex-col gap-4'>
+                <div
+                  data-static-gallery
+                  className='flex -translate-x-[calc(50%-50vw)] items-center gap-4 overflow-clip'
+                >
+                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-red-50'>
+                    1
+                  </div>
+                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-red-100'>
+                    2
+                  </div>
+                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-red-200'>
+                    3
+                  </div>
+                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-red-300'>
+                    4
+                  </div>
+                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-red-400'>
+                    5
+                  </div>
+                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-orange-50'>
+                    6
+                  </div>
+                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-orange-100'>
+                    7
+                  </div>
+                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-orange-200'>
+                    8
+                  </div>
+                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-orange-300'>
+                    9
+                  </div>
+                </div>
+                <div
+                  data-auto-gallery
+                  className='flex items-center gap-4 overflow-clip'
+                >
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-50'
+                  >
+                    1
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-100'
+                  >
+                    2
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-200'
+                  >
+                    3
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-300'
+                  >
+                    4
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-400'
+                  >
+                    5
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-orange-50'
+                  >
+                    6
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </div>
