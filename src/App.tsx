@@ -197,6 +197,50 @@ const brandFilmScrollAnimation = (scroller: string) => {
   return tl
 }
 
+const communityScrollAnimation = (scroller: string) => {
+  const select = gsap.utils.selector(scroller)
+  const title = select('[data-title]')
+  const background = select('[data-background]')
+
+  const staticGalleryFadeItems = select('[data-fade-item]')
+  const autoGallery = select('[data-auto-gallery]')
+  const autoGalleryFadeInItems = select('[data-bottom-fade-item]')
+
+  const firstFadeInItems = staticGalleryFadeItems.filter(
+    (item) => item.dataset.fadeItem === 'first',
+  )
+  const secondFadeInItems = staticGalleryFadeItems.filter(
+    (item) => item.dataset.fadeItem === 'second',
+  )
+  const thirdFadeInItems = staticGalleryFadeItems.filter(
+    (item) => item.dataset.fadeItem === 'third',
+  )
+
+  const tl = gsap
+    .timeline()
+    .set(staticGalleryFadeItems, {
+      opacity: 0,
+      xPercent: (index, _, targets) => {
+        if (index < targets.length / 2) return -10
+        return 10
+      },
+    })
+    .set(autoGalleryFadeInItems, { yPercent: 5, opacity: 0 })
+    .to(title, { opacity: 1 })
+    .to(title, { opacity: 0 })
+    .to(background, {
+      width: '32.375rem',
+      height: '21.5625rem',
+    })
+    .from(autoGallery, { height: 0, paddingTop: 0 })
+    .to(firstFadeInItems, { xPercent: 0, opacity: 1 })
+    .to(secondFadeInItems, { xPercent: 0, opacity: 1 })
+    .to(thirdFadeInItems, { xPercent: 0, opacity: 1 })
+    .to(autoGalleryFadeInItems, { yPercent: 0, opacity: 1 }, '<')
+
+  return tl
+}
+
 function App() {
   const bubbleLottieRef = useRef<AnimationItem | null>(null)
 
@@ -271,35 +315,10 @@ function App() {
     new ScrollTrigger({
       trigger: scroller('community'),
       pin: true,
-      pinSpacing: false,
       scrub: true,
       start: 'top top',
-      end: () => `top+=${3 * innerHeight}px bottom`,
-      animation: delay(
-        gsap
-          .timeline()
-          .set(gsap.utils.toArray('[data-fade-item]'), {
-            opacity: 0,
-            xPercent: (index, _, targets) => {
-              if (index < targets.length / 2) return -10
-              return 10
-            },
-          })
-          .set('[data-bottom-fade-item]', { yPercent: 5, opacity: 0 })
-          .to(`${section('community')} [data-title]`, { opacity: 1 })
-          .to(`${section('community')} [data-title]`, { opacity: 0 })
-          .to(`${section('community')} [data-background]`, {
-            width: '32.375rem',
-            height: '21.5625rem',
-          })
-          .from('[data-auto-gallery]', { height: 0, paddingTop: 0 })
-          .to('[data-fade-item="first"]', { xPercent: 0, opacity: 1 })
-          .to('[data-fade-item="second"]', { xPercent: 0, opacity: 1 })
-          .to('[data-fade-item="third"]', { xPercent: 0, opacity: 1 })
-          .to('[data-bottom-fade-item]', { yPercent: 0, opacity: 1 }, '<'),
-        '1/2',
-      ),
-      markers: true,
+      end: () => `top+=${6 * innerHeight} top`,
+      animation: delay(communityScrollAnimation(scroller('community')), '1/6'),
     })
 
     // new ScrollTrigger({
@@ -366,7 +385,7 @@ function App() {
           </aside>
         </section>
       </div>
-      <div data-positioner='new-logo'>
+      <div>
         <div data-scroller='new-logo'>
           <section
             data-section='new-logo'
@@ -406,7 +425,7 @@ function App() {
           </section>
         </div>
       </div>
-      <div data-positioner='balloons' className='absolute inset-x-0 top-0'>
+      <div className='absolute inset-x-0 top-0'>
         <div data-scroller='balloons'>
           <section data-section='balloons' className='relative z-10 h-dvh'>
             <Player
@@ -613,7 +632,7 @@ function App() {
         </section>
       </div>
 
-      <div className='relative -top-[200dvh]'>
+      <div className='relative -mt-[200dvh]'>
         <div data-scroller='community'>
           <section
             data-section='community'
