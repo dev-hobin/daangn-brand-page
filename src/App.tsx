@@ -12,7 +12,6 @@ const PAGE_UNIT = 1
 
 const scroller = (name: string) => `[data-scroller=${name}]`
 const section = (name: string) => `[data-section=${name}]`
-const text = (name: string) => `[data-text=${name}]`
 
 const fastForward = (
   timeline: gsap.core.Timeline,
@@ -20,8 +19,18 @@ const fastForward = (
 ) => {
   const [top, bottom] = ratio.split('/').map(Number)
   const totalDuration = timeline.totalDuration()
-  const delay = (top * totalDuration) / (bottom - top)
-  return timeline.add(gsap.to({}, { duration: delay }))
+  const delayDuration = (top * totalDuration) / (bottom - top)
+  return timeline.add(gsap.to({}, { duration: delayDuration }))
+}
+
+const delay = (
+  timeline: gsap.core.Timeline,
+  ratio: `${number}/${number}` = '0/1',
+) => {
+  const [top, bottom] = ratio.split('/').map(Number)
+  const totalDuration = timeline.totalDuration()
+  const forwardDuration = (top * totalDuration) / (bottom - top)
+  return gsap.timeline().to({}, { duration: forwardDuration }).add(timeline)
 }
 
 const introAnimation = ({
@@ -259,27 +268,38 @@ function App() {
       ),
     })
 
-    // new ScrollTrigger({
-    //   trigger: scroller('daangn-moments'),
-    //   pin: true,
-    //   pinSpacing: false,
-    //   scrub: true,
-    //   start: 'top top',
-    //   // markers: true,
-    // })
-
     new ScrollTrigger({
       trigger: scroller('community'),
       pin: true,
       pinSpacing: false,
       scrub: true,
       start: 'top top',
-      end: () => `top+=${2 * innerHeight}px top`,
-      animation: gsap
-        .timeline()
-        .to(section('community'), { duration: 1 })
-        .to(text('community'), { scale: 0.5, duration: 1 }),
-      // markers: true,
+      end: () => `top+=${3 * innerHeight}px bottom`,
+      animation: delay(
+        gsap
+          .timeline()
+          .set(gsap.utils.toArray('[data-fade-item]'), {
+            opacity: 0,
+            xPercent: (index, _, targets) => {
+              if (index < targets.length / 2) return -10
+              return 10
+            },
+          })
+          .set('[data-bottom-fade-item]', { yPercent: 5, opacity: 0 })
+          .to(`${section('community')} [data-title]`, { opacity: 1 })
+          .to(`${section('community')} [data-title]`, { opacity: 0 })
+          .to(`${section('community')} [data-background]`, {
+            width: '32.375rem',
+            height: '21.5625rem',
+          })
+          .from('[data-auto-gallery]', { height: 0, paddingTop: 0 })
+          .to('[data-fade-item="first"]', { xPercent: 0, opacity: 1 })
+          .to('[data-fade-item="second"]', { xPercent: 0, opacity: 1 })
+          .to('[data-fade-item="third"]', { xPercent: 0, opacity: 1 })
+          .to('[data-bottom-fade-item]', { yPercent: 0, opacity: 1 }, '<'),
+        '1/2',
+      ),
+      markers: true,
     })
 
     // new ScrollTrigger({
@@ -597,50 +617,81 @@ function App() {
         <div data-scroller='community'>
           <section
             data-section='community'
-            className='grid h-dvh items-center overflow-hidden bg-blue-100'
+            className='relative grid h-dvh items-center overflow-hidden'
           >
-            {/* <h2>
+            <h2
+              data-title
+              className='absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center text-[4rem] font-bold leading-[1.3] text-white opacity-0'
+            >
               가깝고 따뜻한 당신 근처의
               <br />
               지역 생활 커뮤니티
-            </h2> */}
+            </h2>
             <div className='grid h-full w-full items-center'>
-              <div data-gallery-container className='flex flex-col gap-4'>
+              <div data-gallery-container className='flex flex-col'>
                 <div
                   data-static-gallery
-                  className='flex -translate-x-[calc(50%-50vw)] items-center gap-4 overflow-clip'
+                  className='flex -translate-x-[calc(50%-50vw)] items-center justify-center gap-4 overflow-x-clip '
                 >
-                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-red-50'>
+                  <div
+                    data-fade-item='third'
+                    className='h-[21.5625rem] min-w-[32.375rem] bg-red-50'
+                  >
                     1
                   </div>
-                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-red-100'>
+                  <div
+                    data-fade-item='third'
+                    className='h-[21.5625rem] min-w-[32.375rem] bg-red-100'
+                  >
                     2
                   </div>
-                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-red-200'>
+                  <div
+                    data-fade-item='second'
+                    className='h-[21.5625rem] min-w-[32.375rem] bg-red-200'
+                  >
                     3
                   </div>
-                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-red-300'>
+                  <div
+                    data-fade-item='first'
+                    className='h-[21.5625rem] min-w-[32.375rem] bg-red-300'
+                  >
                     4
                   </div>
-                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-red-400'>
+                  <div
+                    data-background
+                    className='h-screen w-screen min-w-[32.375rem] bg-red-400'
+                  >
                     5
                   </div>
-                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-orange-50'>
+                  <div
+                    data-fade-item='first'
+                    className='h-[21.5625rem] min-w-[32.375rem] bg-orange-50'
+                  >
                     6
                   </div>
-                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-orange-100'>
+                  <div
+                    data-fade-item='second'
+                    className='h-[21.5625rem] min-w-[32.375rem] bg-orange-100'
+                  >
                     7
                   </div>
-                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-orange-200'>
+                  <div
+                    data-fade-item='third'
+                    className='h-[21.5625rem] min-w-[32.375rem] bg-orange-200'
+                  >
                     8
                   </div>
-                  <div className='h-[21.5625rem] min-w-[32.375rem] bg-orange-300'>
+                  <div
+                    data-fade-item='third'
+                    className='h-[21.5625rem] min-w-[32.375rem] bg-orange-300'
+                  >
                     9
                   </div>
                 </div>
                 <div
                   data-auto-gallery
-                  className='flex items-center gap-4 overflow-clip'
+                  data-bottom-fade-item
+                  className='flex w-screen items-center gap-4 overflow-clip pt-[1rem]'
                 >
                   <div
                     data-gallery-item
@@ -674,9 +725,63 @@ function App() {
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-orange-50'
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-50'
                   >
-                    6
+                    1
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-100'
+                  >
+                    2
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-200'
+                  >
+                    3
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-300'
+                  >
+                    4
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-400'
+                  >
+                    5
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-50'
+                  >
+                    1
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-100'
+                  >
+                    2
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-200'
+                  >
+                    3
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-300'
+                  >
+                    4
+                  </div>
+                  <div
+                    data-gallery-item
+                    className='h-[13.75rem] min-w-[22.25rem] bg-red-400'
+                  >
+                    5
                   </div>
                 </div>
               </div>
