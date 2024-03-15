@@ -252,13 +252,13 @@ function App() {
 
   useGSAP(() => {
     introAnimation({
-      // onStart: () => {
-      //   document.body.style.overflow = 'hidden'
-      // },
-      // onComplete: () => {
-      //   document.body.style.overflow = 'auto'
-      //   gsap.matchMediaRefresh()
-      // },
+      onStart: () => {
+        document.body.style.overflow = 'hidden'
+      },
+      onComplete: () => {
+        document.body.style.overflow = 'auto'
+        gsap.matchMediaRefresh()
+      },
     }).add(scrollGuideAnimation())
 
     new ScrollTrigger({
