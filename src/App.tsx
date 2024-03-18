@@ -225,12 +225,13 @@ const communityScrollAnimation = (scroller: string) => {
         return 10
       },
     })
-    .set(autoGalleryFadeInItems, { yPercent: 5, opacity: 0 })
+    .set(autoGalleryFadeInItems, { yPercent: 10, opacity: 0 })
     .to(title, { opacity: 1 })
     .to(title, { opacity: 0 })
     .to(background, {
       width: '32.375rem',
       height: '21.5625rem',
+      borderRadius: '1.5rem',
     })
     .from(autoGallery, { height: 0, paddingTop: 0 })
     .to(firstFadeInItems, { xPercent: 0, opacity: 1 })
@@ -333,7 +334,7 @@ function App() {
     horizontalLoop(gsap.utils.toArray('[data-gallery-item]'), {
       repeat: -1,
       speed: 0.3,
-      paddingRight: 16,
+      paddingRight: 24,
     })
   })
 
@@ -533,7 +534,7 @@ function App() {
       <div className='relative -top-[100dvh] z-10'>
         <section
           data-section='daangn-moments'
-          className='min-h-[150dvh] bg-white py-[11.875rem]'
+          className='min-h-[100dvh] bg-white py-[11.875rem]'
         >
           <div className='mx-auto flex max-w-[68.75rem] flex-col items-center'>
             <h2 className='whitespace-pre-line text-center text-[3.75rem] font-bold leading-tight'>
@@ -651,157 +652,324 @@ function App() {
               <div data-gallery-container className='flex flex-col'>
                 <div
                   data-static-gallery
-                  className='flex -translate-x-[calc(50%-50vw)] items-center justify-center gap-4 overflow-x-clip '
+                  className='flex -translate-x-[calc(50%-50vw)] items-center justify-center gap-6 overflow-x-clip '
                 >
                   <div
                     data-fade-item='third'
-                    className='h-[21.5625rem] min-w-[32.375rem] bg-red-50'
+                    className='h-[21.5625rem] w-[32.375rem] min-w-[32.375rem] overflow-hidden rounded-3xl'
                   >
-                    1
+                    <img
+                      src='/images/up-4.jpg'
+                      alt='당근 아웃트로 첫 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-fade-item='third'
-                    className='h-[21.5625rem] min-w-[32.375rem] bg-red-100'
+                    className='h-[21.5625rem] w-[32.375rem] min-w-[32.375rem] overflow-hidden rounded-3xl'
                   >
-                    2
+                    <img
+                      src='/images/up-5.jpg'
+                      alt='당근 아웃트로 두 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-fade-item='second'
-                    className='h-[21.5625rem] min-w-[32.375rem] bg-red-200'
+                    className='h-[21.5625rem] w-[32.375rem] min-w-[32.375rem] overflow-hidden rounded-3xl'
                   >
-                    3
+                    <img
+                      src='/images/up-1.jpg'
+                      alt='당근 아웃트로 세 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-fade-item='first'
-                    className='h-[21.5625rem] min-w-[32.375rem] bg-red-300'
+                    className='h-[21.5625rem] w-[32.375rem] min-w-[32.375rem] overflow-hidden rounded-3xl'
                   >
-                    4
+                    <img
+                      src='/images/up-2.jpg'
+                      alt='당근 아웃트로 네 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-background
-                    className='h-screen w-screen min-w-[32.375rem] bg-red-400'
+                    className='h-screen w-screen min-w-[32.375rem] overflow-hidden'
                   >
-                    5
+                    <video
+                      autoPlay
+                      loop
+                      playsInline
+                      muted
+                      className='h-full w-full object-cover'
+                    >
+                      <source src='/videos/outro-pc.webm' type='video/webm' />
+                      <source src='/videos/outro-pc.mp4' type='video/mp4' />
+                    </video>
                   </div>
                   <div
                     data-fade-item='first'
-                    className='h-[21.5625rem] min-w-[32.375rem] bg-orange-50'
+                    className='h-[21.5625rem] w-[32.375rem] min-w-[32.375rem] overflow-hidden rounded-3xl'
                   >
-                    6
+                    <img
+                      src='/images/up-4.jpg'
+                      alt='당근 아웃트로 첫 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-fade-item='second'
-                    className='h-[21.5625rem] min-w-[32.375rem] bg-orange-100'
+                    className='h-[21.5625rem] w-[32.375rem] min-w-[32.375rem] overflow-hidden rounded-3xl'
                   >
-                    7
+                    <img
+                      src='/images/up-5.jpg'
+                      alt='당근 아웃트로 두 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-fade-item='third'
-                    className='h-[21.5625rem] min-w-[32.375rem] bg-orange-200'
+                    className='h-[21.5625rem] w-[32.375rem] min-w-[32.375rem] overflow-hidden rounded-3xl'
                   >
-                    8
+                    <img
+                      src='/images/up-1.jpg'
+                      alt='당근 아웃트로 세 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-fade-item='third'
-                    className='h-[21.5625rem] min-w-[32.375rem] bg-orange-300'
+                    className='h-[21.5625rem] w-[32.375rem] min-w-[32.375rem] overflow-hidden rounded-3xl'
                   >
-                    9
+                    <img
+                      src='/images/up-2.jpg'
+                      alt='당근 아웃트로 네 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                 </div>
                 <div
                   data-auto-gallery
                   data-bottom-fade-item
-                  className='flex w-screen items-center gap-4 overflow-clip pt-[1rem]'
+                  className='flex w-screen items-center gap-6 overflow-clip pt-[1.5rem]'
                 >
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-50'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    1
+                    <video
+                      autoPlay
+                      loop
+                      playsInline
+                      muted
+                      className='h-full w-full object-cover'
+                    >
+                      <source
+                        src='/videos/carousel-down-1.webm'
+                        type='video/webm'
+                      />
+                      <source
+                        src='/videos/carousel-down-1.mp4'
+                        type='video/mp4'
+                      />
+                    </video>
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-100'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    2
+                    <img
+                      src='/images/down-2.png'
+                      alt='당근 아웃트로 아래 두 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-200'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    3
+                    <video
+                      autoPlay
+                      loop
+                      playsInline
+                      muted
+                      className='h-full w-full object-cover'
+                    >
+                      <source
+                        src='/videos/carousel-down-3.webm'
+                        type='video/webm'
+                      />
+                      <source
+                        src='/videos/carousel-down-3.mp4'
+                        type='video/mp4'
+                      />
+                    </video>
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-300'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    4
+                    <img
+                      src='/images/down-4.png'
+                      alt='당근 아웃트로 아래 네 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-400'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    5
+                    <img
+                      src='/images/down-5.png'
+                      alt='당근 아웃트로 아래 다섯 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-50'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    1
+                    <video
+                      autoPlay
+                      loop
+                      playsInline
+                      muted
+                      className='h-full w-full object-cover'
+                    >
+                      <source
+                        src='/videos/carousel-down-1.webm'
+                        type='video/webm'
+                      />
+                      <source
+                        src='/videos/carousel-down-1.mp4'
+                        type='video/mp4'
+                      />
+                    </video>
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-100'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    2
+                    <img
+                      src='/images/down-2.png'
+                      alt='당근 아웃트로 아래 두 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-200'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    3
+                    <video
+                      autoPlay
+                      loop
+                      playsInline
+                      muted
+                      className='h-full w-full object-cover'
+                    >
+                      <source
+                        src='/videos/carousel-down-3.webm'
+                        type='video/webm'
+                      />
+                      <source
+                        src='/videos/carousel-down-3.mp4'
+                        type='video/mp4'
+                      />
+                    </video>
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-300'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    4
+                    <img
+                      src='/images/down-4.png'
+                      alt='당근 아웃트로 아래 네 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-400'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    5
+                    <img
+                      src='/images/down-5.png'
+                      alt='당근 아웃트로 아래 다섯 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-50'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    1
+                    <video
+                      autoPlay
+                      loop
+                      playsInline
+                      muted
+                      className='h-full w-full object-cover'
+                    >
+                      <source
+                        src='/videos/carousel-down-1.webm'
+                        type='video/webm'
+                      />
+                      <source
+                        src='/videos/carousel-down-1.mp4'
+                        type='video/mp4'
+                      />
+                    </video>
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-100'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    2
+                    <img
+                      src='/images/down-2.png'
+                      alt='당근 아웃트로 아래 두 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-200'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    3
+                    <video
+                      autoPlay
+                      loop
+                      playsInline
+                      muted
+                      className='h-full w-full object-cover'
+                    >
+                      <source
+                        src='/videos/carousel-down-3.webm'
+                        type='video/webm'
+                      />
+                      <source
+                        src='/videos/carousel-down-3.mp4'
+                        type='video/mp4'
+                      />
+                    </video>
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-300'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    4
+                    <img
+                      src='/images/down-4.png'
+                      alt='당근 아웃트로 아래 네 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                   <div
                     data-gallery-item
-                    className='h-[13.75rem] min-w-[22.25rem] bg-red-400'
+                    className='h-[13.75rem] w-[22.25rem] min-w-[22.25rem] overflow-hidden rounded-3xl'
                   >
-                    5
+                    <img
+                      src='/images/down-5.png'
+                      alt='당근 아웃트로 아래 다섯 번째 이미지'
+                      className='h-full w-full object-cover'
+                    />
                   </div>
                 </div>
               </div>
