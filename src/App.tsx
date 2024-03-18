@@ -455,6 +455,7 @@ function App() {
             className='absolute inset-0 h-full w-full translate-y-[10dvh] scale-75 rounded-[3.75rem] object-cover opacity-0'
           >
             <source src='/videos/campaign_preview_pc.webm' type='video/webm' />
+            <source src='/videos/campaign_preview_pc.mp4' type='video/mp4' />
           </video>
 
           <div
