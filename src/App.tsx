@@ -40,36 +40,67 @@ const introAnimation = ({
   onStart?: () => void
   onComplete?: () => void
 } = {}) => {
-  const tl = gsap
-    .timeline({
-      onStart: onStart,
-    })
-    .from('[data-question] [data-letter]', {
-      visibility: 'hidden',
-      position: 'absolute',
-      ease: 'power3.out',
-      stagger: 0.15,
-    })
-    .to(
-      '[data-question]',
-      {
-        yPercent: -50,
-        opacity: 0,
-        ease: 'power3.inOut',
-      },
-      '+=1',
+  const tl = gsap.timeline({
+    onStart,
+  })
+
+  const letters = gsap.utils.toArray<HTMLElement>(
+    '[data-question] [data-letter]',
+  )
+  const lastLetter = letters.pop()
+
+  letters.forEach((item, i) => {
+    tl.add(
+      gsap.from(item, {
+        visibility: 'hidden',
+        position: 'absolute',
+        ease: 'power3.out',
+        delay: 0.15,
+        onComplete: () => {
+          if (i === 3) {
+            gsap.set(letters[0], { attr: { 'data-type': 'basket' } })
+          }
+          if (i === 4) {
+            gsap.set(letters[0], { attr: { 'data-type': 'text' } })
+            gsap.set(letters[1], { attr: { 'data-type': 'basket' } })
+            gsap.set(letters[1], {
+              attr: { 'data-type': 'text' },
+              delay: 0.15,
+            })
+            gsap.set(lastLetter ?? '', {
+              attr: { 'data-type': 'karrot' },
+              delay: 0.15,
+            })
+            gsap.set(lastLetter ?? '', {
+              attr: { 'data-type': 'text' },
+              delay: 0.15 * 2,
+            })
+          }
+        },
+      }),
+      '<',
     )
-    .from(
-      '[data-answer] [data-letter]',
-      {
-        opacity: 0,
-        yPercent: 100,
-        stagger: { amount: 0.1 },
-        ease: 'back.out(1.7)',
-        onComplete,
-      },
-      '-=25%',
-    )
+  })
+
+  tl.to(
+    '[data-question]',
+    {
+      yPercent: -50,
+      opacity: 0,
+      ease: 'power3.inOut',
+    },
+    '+=1',
+  ).from(
+    '[data-answer] [data-letter]',
+    {
+      opacity: 0,
+      yPercent: 100,
+      stagger: { amount: 0.1 },
+      ease: 'back.out(1.7)',
+      onComplete,
+    },
+    '-=25%',
+  )
 
   return tl
 }
@@ -354,16 +385,79 @@ function App() {
     <main>
       <div data-scroller='intro'>
         <section data-section='intro' className='grid h-dvh items-center'>
-          <h1 className='relative flex flex-col items-center overflow-hidden py-12 text-8xl font-black'>
-            <div data-question className='absolute inset-x-0 text-center'>
-              <span data-letter>당</span>
-              <span data-letter>근</span>
-              <span data-letter>이</span>
-              <span data-letter>세</span>
-              <span data-letter>요</span>
-              <span>?</span>
+          <h1 className='font-karrot relative flex flex-col items-center overflow-hidden py-12 text-9xl font-black'>
+            <div
+              data-question
+              className='absolute inset-x-0 flex items-center justify-center'
+            >
+              <span
+                data-letter
+                data-type='karrot'
+                className='group relative grid items-center'
+              >
+                <span className='opacity-0 group-data-[type=text]:opacity-100'>
+                  당
+                </span>
+                <img
+                  src='/images/karrot.png'
+                  alt=''
+                  className='absolute left-1/2 top-1/2 h-full -translate-x-1/2 -translate-y-1/2 scale-[1.2] opacity-0 group-data-[type=karrot]:opacity-100'
+                />
+                <img
+                  src='/images/basket.png'
+                  alt=''
+                  className='absolute left-1/2 top-1/2 h-full -translate-x-1/2 -translate-y-1/2 scale-[1.2] opacity-0 group-data-[type=basket]:opacity-100'
+                />
+              </span>
+              <span
+                data-letter
+                data-type='karrot'
+                className='group relative grid items-center'
+              >
+                <span className='opacity-0 group-data-[type=text]:opacity-100'>
+                  근
+                </span>
+                <img
+                  src='/images/karrot.png'
+                  alt=''
+                  className='absolute left-1/2 top-1/2 h-full -translate-x-1/2 -translate-y-1/2 scale-[1.2] opacity-0 group-data-[type=karrot]:opacity-100'
+                />
+                <img
+                  src='/images/basket.png'
+                  alt=''
+                  className='absolute left-1/2 top-1/2 h-full -translate-x-1/2 -translate-y-1/2 scale-[1.2] opacity-0 group-data-[type=basket]:opacity-100'
+                />
+              </span>
+              <span data-letter className='relative grid items-center'>
+                이
+              </span>
+              <span data-letter className='relative grid items-center'>
+                세
+              </span>
+              <span data-letter className='relative grid items-center'>
+                요
+              </span>
+              <span
+                data-letter
+                data-type='daangni'
+                className='group relative grid items-center'
+              >
+                <span className='min-w-[8rem] opacity-0 group-data-[type=text]:opacity-100'>
+                  ?
+                </span>
+                <img
+                  src='/images/karrot.png'
+                  alt=''
+                  className='absolute left-1/2 top-1/2 h-full -translate-x-1/2 -translate-y-1/2 scale-[1.2] opacity-0 group-data-[type=karrot]:opacity-100'
+                />
+                <img
+                  src='/images/daangni.png'
+                  alt=''
+                  className='absolute left-1/2 top-1/2 h-full min-w-[8rem] -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 group-data-[type=daangni]:opacity-100'
+                />
+              </span>
             </div>
-            <div data-answer className='flex'>
+            <div data-answer className='font-karrot flex'>
               <span data-letter>네!</span>
               <span data-letter>&nbsp;당근이에요</span>
             </div>
