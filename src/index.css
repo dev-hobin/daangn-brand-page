@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'KarrotSans Bold';
+    font-display: swap;
+    src:
+      url(/fonts/KarrotSans-Bold.woff2) format('woff2'),
+      url(/fonts/KarrotSans-Bold.woff) format('woff'),
+      url(/fonts/KarrotSans-Bold.ttf) format('truetype'),
+      url(/fonts/KarrotSans-Bold.otf) format('opentype');
+  }
+}
