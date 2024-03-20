@@ -1,8 +1,9 @@
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { delayAnimationStart } from '../utils/delay'
+import { delayAnimation } from '../utils/scrollTimeline'
 import { useRef } from 'react'
+import { ScrollProps } from '../types'
 
 const animation = (scrollElement: HTMLElement) => {
   const select = gsap.utils.selector(scrollElement)
@@ -48,7 +49,11 @@ const animation = (scrollElement: HTMLElement) => {
   return tl
 }
 
-export function BrandFilmSection() {
+type BrandFilmSectionProps = Pick<ScrollProps, 'size' | 'delay'>
+export function BrandFilmSection({
+  size = 1,
+  delay = '0/100',
+}: BrandFilmSectionProps) {
   const ref = useRef<HTMLElement | null>(null)
 
   useGSAP(() => {
@@ -59,8 +64,8 @@ export function BrandFilmSection() {
       pin: true,
       scrub: true,
       start: 'top top',
-      end: () => `top+=${innerHeight * 6} top`,
-      animation: delayAnimationStart(animation(ref.current), '1/6'),
+      end: () => `top+=${innerHeight * size} top`,
+      animation: delayAnimation(animation(ref.current), delay),
     })
   })
 

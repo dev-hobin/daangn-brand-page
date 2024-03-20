@@ -3,8 +3,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Player } from '@lottiefiles/react-lottie-player'
 import { AnimationItem } from 'lottie-web'
 import { useRef } from 'react'
+import { ScrollProps } from '../types'
 
-export function BalloonSection() {
+type BalloonSectionProps = Pick<ScrollProps, 'size'>
+export function BalloonSection({ size = 1 }: BalloonSectionProps) {
   const ref = useRef<HTMLDivElement | null>(null)
   const bubbleLottieRef = useRef<AnimationItem | null>(null)
 
@@ -17,7 +19,7 @@ export function BalloonSection() {
       pinSpacing: false,
       scrub: true,
       start: 'top top',
-      end: () => `top+=${innerHeight * 1.5} top`,
+      end: () => `top+=${innerHeight * size} top`,
       onUpdate: (self) => {
         if (!bubbleLottieRef.current) return
         bubbleLottieRef.current.goToAndStop(
@@ -31,7 +33,6 @@ export function BalloonSection() {
   return (
     <section ref={ref} className='relative z-10 h-dvh'>
       <Player
-        autoplay
         lottieRef={(item) => {
           bubbleLottieRef.current = item
         }}

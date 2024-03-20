@@ -1,23 +1,23 @@
 import gsap from 'gsap'
 
-export function delayAnimationEnd(
+export function fastForwardAnimation(
   timeline: gsap.core.Timeline,
   ratio: `${number}/${number}` = '0/1',
 ) {
   const [top, bottom] = ratio.split('/').map(Number)
   const totalDuration = timeline.totalDuration()
-  const delayDuration = (top * totalDuration) / (bottom - top)
+  const duration = (top * totalDuration) / (bottom - top)
 
-  return gsap.timeline().to({}, { duration: delayDuration }).add(timeline)
+  return gsap.timeline().to({}, { duration }).add(timeline)
 }
 
-export function delayAnimationStart(
+export function delayAnimation(
   timeline: gsap.core.Timeline,
   ratio: `${number}/${number}` = '0/1',
 ) {
   const [top, bottom] = ratio.split('/').map(Number)
   const totalDuration = timeline.totalDuration()
-  const delayDuration = (top * totalDuration) / (bottom - top)
+  const duration = (top * totalDuration) / (bottom - top)
 
-  return timeline.add(gsap.to({}, { duration: delayDuration }))
+  return timeline.add(gsap.to({}, { duration }))
 }

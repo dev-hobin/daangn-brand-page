@@ -1,11 +1,12 @@
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { delayAnimationEnd } from '../utils/delay'
+import { fastForwardAnimation } from '../utils/scrollTimeline'
 import { horizontalLoop } from '../utils/horizontalLoop'
 import { useRef } from 'react'
+import { ScrollProps } from '../types'
 
-const communityScrollAnimation = (scrollElement: HTMLElement) => {
+const animation = (scrollElement: HTMLElement) => {
   const select = gsap.utils.selector(scrollElement)
   const title = select('[data-title]')
   const background = select('[data-background]')
@@ -50,7 +51,11 @@ const communityScrollAnimation = (scrollElement: HTMLElement) => {
   return tl
 }
 
-export function CommunitySection() {
+type CommunitySectionProps = Pick<ScrollProps, 'size' | 'faster'>
+export function CommunitySection({
+  size = 1,
+  faster = '0/100',
+}: CommunitySectionProps) {
   const ref = useRef<HTMLElement | null>(null)
 
   useGSAP(() => {
@@ -61,11 +66,8 @@ export function CommunitySection() {
       pin: true,
       scrub: true,
       start: 'top top',
-      end: () => `top+=${6 * innerHeight} top`,
-      animation: delayAnimationEnd(
-        communityScrollAnimation(ref.current),
-        '1/6',
-      ),
+      end: () => `top+=${innerHeight * size} top`,
+      animation: fastForwardAnimation(animation(ref.current), faster),
     })
 
     horizontalLoop(gsap.utils.toArray('[data-gallery-item]'), {

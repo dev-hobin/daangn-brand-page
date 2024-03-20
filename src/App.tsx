@@ -22,25 +22,18 @@ function App() {
   return (
     <main>
       <IntroSection />
-      <NewLogoSection />
+      <NewLogoSection size={2} delay='1/2' />
       <div className='absolute inset-x-0 top-0'>
-        <BalloonSection />
+        <BalloonSection size={1.5} />
       </div>
-      <div data-scroller='brand-film'>
-        <BrandFilmSection />
-      </div>
-
-      <div className='relative -top-[100dvh] z-10'>
+      <BrandFilmSection size={6} delay='1/6' />
+      <div className='relative z-10 -mt-[100dvh]'>
         <DaangnMomentSection />
       </div>
-
-      <div className='relative -mt-[200dvh]'>
-        <CommunitySection />
+      <div className='relative -mt-[100dvh]'>
+        <CommunitySection size={6} faster='1/6' />
       </div>
-
-      <div data-scroller='ending'>
-        <EndingSection />
-      </div>
+      <EndingSection />
     </main>
   )
 }

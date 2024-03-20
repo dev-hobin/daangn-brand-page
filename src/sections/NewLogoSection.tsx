@@ -1,10 +1,11 @@
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { delayAnimationStart } from '../utils/delay'
+import { delayAnimation } from '../utils/scrollTimeline'
 import { useRef } from 'react'
+import { ScrollProps } from '../types'
 
-const newLogoScrollAnimation = (scrollElement: HTMLElement) => {
+const animation = (scrollElement: HTMLElement) => {
   const select = gsap.utils.selector(scrollElement)
   const [logo, image, text, description] = select('[data-new-logo]')
 
@@ -41,7 +42,7 @@ const newLogoScrollAnimation = (scrollElement: HTMLElement) => {
   return tl
 }
 
-export function NewLogoSection() {
+export function NewLogoSection({ size = 1, delay = '0/100' }: ScrollProps) {
   const ref = useRef<HTMLElement | null>(null)
 
   useGSAP(() => {
@@ -49,15 +50,12 @@ export function NewLogoSection() {
 
     new ScrollTrigger({
       trigger: ref.current,
-      animation: delayAnimationStart(
-        newLogoScrollAnimation(ref.current),
-        '1/2',
-      ),
+      animation: delayAnimation(animation(ref.current), delay),
       pin: true,
       pinSpacing: false,
       scrub: true,
       start: 'top top',
-      end: () => `top+=${innerHeight * 2} top`,
+      end: () => `top+=${innerHeight * size} top`,
     })
   })
 
