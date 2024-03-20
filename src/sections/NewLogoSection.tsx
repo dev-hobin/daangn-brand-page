@@ -89,10 +89,10 @@ export function NewLogoSection({ size = 1, delay = '0/100' }: ScrollProps) {
         data-new-logo='description'
         className='absolute bottom-[25%] left-1/2 -translate-x-1/2'
       >
-        <p className='text-center text-4xl font-bold leading-normal'>
+        <p className='text-center font-karrot text-4xl leading-normal'>
           소개할게요!
         </p>
-        <p className='text-center text-4xl font-bold leading-normal'>
+        <p className='text-center font-karrot text-4xl leading-normal'>
           당근마켓의 새 이름, 새 얼굴
         </p>
       </div>

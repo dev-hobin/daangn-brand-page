@@ -47,7 +47,7 @@ export function EndingSection() {
           className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'
         />
       </div>
-      <p className='mt-[3.125rem] text-center text-[2.5rem] font-black'>
+      <p className='mt-[3.125rem] text-center font-karrot text-[2.5rem]'>
         당근에서 만나요!
       </p>
     </section>

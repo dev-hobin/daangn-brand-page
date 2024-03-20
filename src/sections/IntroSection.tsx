@@ -146,7 +146,7 @@ export function IntroSection() {
 
   return (
     <section ref={ref} className='grid h-dvh items-center'>
-      <h1 className='relative flex flex-col items-center overflow-hidden py-12 font-karrot text-9xl font-black'>
+      <h1 className='relative flex flex-col items-center overflow-hidden py-12 font-karrot text-9xl'>
         <div
           data-question
           className='absolute inset-x-0 flex items-center justify-center'

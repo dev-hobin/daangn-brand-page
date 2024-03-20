@@ -123,22 +123,22 @@ export function BrandFilmSection({
               data-first-content
               className='absolute left-0 top-1/2 -translate-y-1/2'
             >
-              <p className='text-[2.5rem] font-black leading-[3.75rem] text-white'>
+              <p className='font-karrot text-[2.5rem] leading-[3.75rem] text-white'>
                 근처에 살고 있다는 이유만으로
               </p>
-              <p className='text-[2.5rem] font-black leading-[3.75rem] text-white'>
+              <p className='font-karrot text-[2.5rem] leading-[3.75rem] text-white'>
                 함께 할 수 있는 것들이 많아져요
               </p>
             </div>
             <div data-second-content className='translate-y-[5dvh] opacity-0'>
-              <p className='mb-[2rem] text-[2.5rem] font-black leading-[3.75rem] text-white'>
+              <p className='mb-[2rem] font-karrot text-[2.5rem] leading-[3.75rem] text-white'>
                 더 가깝게, 조금은 느슨하게
               </p>
 
-              <p className='text-[2.5rem] font-black leading-[3.75rem] text-white'>
+              <p className='font-karrot text-[2.5rem] leading-[3.75rem] text-white'>
                 나와 이웃의 연결이 시작될 때
               </p>
-              <p className='text-[2.5rem] font-black leading-[3.75rem] text-white'>
+              <p className='font-karrot text-[2.5rem] leading-[3.75rem] text-white'>
                 우리의 삶은 더 이로워질 거예요.
               </p>
             </div>
