@@ -385,7 +385,7 @@ function App() {
     <main>
       <div data-scroller='intro'>
         <section data-section='intro' className='grid h-dvh items-center'>
-          <h1 className='font-karrot relative flex flex-col items-center overflow-hidden py-12 text-9xl font-black'>
+          <h1 className='relative flex flex-col items-center overflow-hidden py-12 font-karrot text-9xl font-black'>
             <div
               data-question
               className='absolute inset-x-0 flex items-center justify-center'
@@ -457,7 +457,7 @@ function App() {
                 />
               </span>
             </div>
-            <div data-answer className='font-karrot flex'>
+            <div data-answer className='flex font-karrot'>
               <span data-letter>네!</span>
               <span data-letter>&nbsp;당근이에요</span>
             </div>
