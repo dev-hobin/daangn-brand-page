@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react'
 import { AnimationItem } from 'lottie-web'
 import { Player } from '@lottiefiles/react-lottie-player'
 import { horizontalLoop } from './utils/horizontalLoop'
+import { delayAnimationStart, delayAnimationEnd } from './utils/delay'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -12,26 +13,6 @@ const PAGE_UNIT = 1
 
 const scroller = (name: string) => `[data-scroller=${name}]`
 const section = (name: string) => `[data-section=${name}]`
-
-const fastForward = (
-  timeline: gsap.core.Timeline,
-  ratio: `${number}/${number}` = '0/1',
-) => {
-  const [top, bottom] = ratio.split('/').map(Number)
-  const totalDuration = timeline.totalDuration()
-  const delayDuration = (top * totalDuration) / (bottom - top)
-  return timeline.add(gsap.to({}, { duration: delayDuration }))
-}
-
-const delay = (
-  timeline: gsap.core.Timeline,
-  ratio: `${number}/${number}` = '0/1',
-) => {
-  const [top, bottom] = ratio.split('/').map(Number)
-  const totalDuration = timeline.totalDuration()
-  const forwardDuration = (top * totalDuration) / (bottom - top)
-  return gsap.timeline().to({}, { duration: forwardDuration }).add(timeline)
-}
 
 const introAnimation = ({
   onStart,
@@ -323,7 +304,7 @@ function App() {
 
     new ScrollTrigger({
       trigger: scroller('new-logo'),
-      animation: fastForward(
+      animation: delayAnimationStart(
         newLogoScrollAnimation(scroller('new-logo')),
         '1/2',
       ),
@@ -340,7 +321,7 @@ function App() {
       scrub: true,
       start: 'top top',
       end: () => `top+=${innerHeight * 6 * PAGE_UNIT}px top`,
-      animation: fastForward(
+      animation: delayAnimationStart(
         brandFilmScrollAnimation(scroller('brand-film')),
         '1/6',
       ),
@@ -352,7 +333,10 @@ function App() {
       scrub: true,
       start: 'top top',
       end: () => `top+=${6 * innerHeight} top`,
-      animation: delay(communityScrollAnimation(scroller('community')), '1/6'),
+      animation: delayAnimationEnd(
+        communityScrollAnimation(scroller('community')),
+        '1/6',
+      ),
     })
 
     // new ScrollTrigger({
