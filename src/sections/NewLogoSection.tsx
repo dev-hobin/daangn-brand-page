@@ -2,10 +2,11 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { delayAnimationStart } from '../utils/delay'
+import { useRef } from 'react'
 
-const newLogoScrollAnimation = (scroller: string) => {
-  const selectAll = gsap.utils.selector(scroller)
-  const [logo, image, text, description] = selectAll('[data-new-logo]')
+const newLogoScrollAnimation = (scrollElement: HTMLElement) => {
+  const select = gsap.utils.selector(scrollElement)
+  const [logo, image, text, description] = select('[data-new-logo]')
 
   const tl = gsap
     .timeline()
@@ -40,26 +41,29 @@ const newLogoScrollAnimation = (scroller: string) => {
   return tl
 }
 
-const scroller = (name: string) => `[data-scroller=${name}]`
-
 export function NewLogoSection() {
+  const ref = useRef<HTMLElement | null>(null)
+
   useGSAP(() => {
+    if (!ref.current) return
+
     new ScrollTrigger({
-      trigger: scroller('new-logo'),
+      trigger: ref.current,
       animation: delayAnimationStart(
-        newLogoScrollAnimation(scroller('new-logo')),
+        newLogoScrollAnimation(ref.current),
         '1/2',
       ),
       pin: true,
       pinSpacing: false,
       scrub: true,
       start: 'top top',
-      end: () => `top+=${innerHeight * 2}px top`,
+      end: () => `top+=${innerHeight * 2} top`,
     })
   })
 
   return (
     <section
+      ref={ref}
       data-section='new-logo'
       className='relative grid h-dvh place-content-center'
     >

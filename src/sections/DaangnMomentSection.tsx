@@ -2,10 +2,7 @@ import { Player } from '@lottiefiles/react-lottie-player'
 
 export function DaangnMomentSection() {
   return (
-    <section
-      data-section='daangn-moments'
-      className='min-h-[100dvh] bg-white py-[11.875rem]'
-    >
+    <section className='min-h-[100dvh] bg-white py-[11.875rem]'>
       <div className='mx-auto flex max-w-[68.75rem] flex-col items-center'>
         <h2 className='whitespace-pre-line text-center text-[3.75rem] font-bold leading-tight'>
           동네에서 만나는{'\n'}당근의 순간들

@@ -3,31 +3,29 @@ import { AnimationItem } from 'lottie-web'
 import { useRef } from 'react'
 
 export function EndingSection() {
-  const logoLottieEffectOneRef = useRef<AnimationItem | null>(null)
-  const logoLottieEffectTwoRef = useRef<AnimationItem | null>(null)
+  const effectOneRef = useRef<AnimationItem | null>(null)
+  const effectTwoRef = useRef<AnimationItem | null>(null)
 
   const handleLogoClick = () => {
-    const firstEffectIsPaused = logoLottieEffectOneRef.current?.isPaused
-    const secondEffectIsPaused = logoLottieEffectTwoRef.current?.isPaused
+    const firstEffectIsPaused = effectOneRef.current?.isPaused
+    const secondEffectIsPaused = effectTwoRef.current?.isPaused
+
     if (firstEffectIsPaused) {
-      logoLottieEffectOneRef.current?.play()
+      effectOneRef.current?.play()
     } else if (secondEffectIsPaused) {
-      logoLottieEffectTwoRef.current?.play()
+      effectTwoRef.current?.play()
     }
   }
 
   return (
-    <section
-      data-section='ending'
-      className='flex h-dvh flex-col items-center justify-start'
-    >
+    <section className='flex h-dvh flex-col items-center justify-start'>
       <div
         className='relative h-[31.25rem] w-[25rem] cursor-pointer transition-transform hover:active:scale-[0.98]'
         onClick={handleLogoClick}
       >
         <Player
           lottieRef={(item) => {
-            logoLottieEffectOneRef.current = item
+            effectOneRef.current = item
           }}
           renderer='svg'
           src='/lotties/outro_logo_hover.json'
@@ -35,7 +33,7 @@ export function EndingSection() {
         />
         <Player
           lottieRef={(item) => {
-            logoLottieEffectTwoRef.current = item
+            effectTwoRef.current = item
           }}
           renderer='svg'
           src='/lotties/outro_logo_hover.json'

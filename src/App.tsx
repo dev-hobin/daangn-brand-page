@@ -21,14 +21,8 @@ function App() {
 
   return (
     <main>
-      <div data-scroller='intro'>
-        <IntroSection />
-      </div>
-      <div>
-        <div data-scroller='new-logo'>
-          <NewLogoSection />
-        </div>
-      </div>
+      <IntroSection />
+      <NewLogoSection />
       <div className='absolute inset-x-0 top-0'>
         <BalloonSection />
       </div>

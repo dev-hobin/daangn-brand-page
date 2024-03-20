@@ -2,13 +2,12 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { delayAnimationStart } from '../utils/delay'
+import { useRef } from 'react'
 
-const scroller = (name: string) => `[data-scroller=${name}]`
-const section = (name: string) => `[data-section=${name}]`
+const animation = (scrollElement: HTMLElement) => {
+  const select = gsap.utils.selector(scrollElement)
 
-const brandFilmScrollAnimation = (scroller: string) => {
-  const select = gsap.utils.selector(scroller)
-  const brandFilmSection = select(section('brand-film'))
+  const container = scrollElement
   const video = select('[data-video]')
   const titleContainer = select('[data-title-container]')
   const contentContainer = select('[data-content-container]')
@@ -18,7 +17,7 @@ const brandFilmScrollAnimation = (scroller: string) => {
 
   const tl = gsap
     .timeline()
-    .to(brandFilmSection, {
+    .to(container, {
       backgroundColor: 'black',
       opacity: 1,
     })
@@ -50,25 +49,23 @@ const brandFilmScrollAnimation = (scroller: string) => {
 }
 
 export function BrandFilmSection() {
+  const ref = useRef<HTMLElement | null>(null)
+
   useGSAP(() => {
+    if (!ref.current) return
+
     new ScrollTrigger({
-      trigger: scroller('brand-film'),
+      trigger: ref.current,
       pin: true,
       scrub: true,
       start: 'top top',
-      end: () => `top+=${innerHeight * 6}px top`,
-      animation: delayAnimationStart(
-        brandFilmScrollAnimation(scroller('brand-film')),
-        '1/6',
-      ),
+      end: () => `top+=${innerHeight * 6} top`,
+      animation: delayAnimationStart(animation(ref.current), '1/6'),
     })
   })
 
   return (
-    <section
-      data-section='brand-film'
-      className='relative grid h-dvh items-center'
-    >
+    <section ref={ref} className='relative grid h-dvh items-center'>
       <video
         data-video
         autoPlay

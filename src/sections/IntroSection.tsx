@@ -1,6 +1,7 @@
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useRef } from 'react'
 
 const introAnimation = ({
   onStart,
@@ -117,11 +118,12 @@ const scrollGuideAnimation = () => {
   return tl
 }
 
-const scroller = (name: string) => `[data-scroller=${name}]`
-const section = (name: string) => `[data-section=${name}]`
-
 export function IntroSection() {
+  const ref = useRef<HTMLElement | null>(null)
+
   useGSAP(() => {
+    if (!ref.current) return
+
     introAnimation({
       onStart: () => {
         document.body.style.overflow = 'hidden'
@@ -133,18 +135,17 @@ export function IntroSection() {
     }).add(scrollGuideAnimation())
 
     new ScrollTrigger({
-      trigger: scroller('intro'),
-      animation: gsap.to(section('intro'), { opacity: 0 }),
+      trigger: ref.current,
+      animation: gsap.to(ref.current, { opacity: 0 }),
       pin: true,
       pinSpacing: false,
       scrub: true,
       start: 'top top',
-      // markers: true,
     })
   })
 
   return (
-    <section data-section='intro' className='grid h-dvh items-center'>
+    <section ref={ref} className='grid h-dvh items-center'>
       <h1 className='relative flex flex-col items-center overflow-hidden py-12 font-karrot text-9xl font-black'>
         <div
           data-question
