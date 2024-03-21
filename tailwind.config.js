@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         karrot: ['KarrotSans Bold'],
       },
+      screens: {
+        xs: '480px',
+      },
     },
   },
   plugins: [],

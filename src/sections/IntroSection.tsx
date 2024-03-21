@@ -146,7 +146,7 @@ export function IntroSection() {
 
   return (
     <section ref={ref} className='grid h-dvh items-center'>
-      <h1 className='relative flex flex-col items-center overflow-hidden py-12 font-karrot text-9xl'>
+      <h1 className='xs:text-6xl relative flex flex-col items-center overflow-hidden py-12 font-karrot text-4xl md:text-8xl xl:text-9xl'>
         <div
           data-question
           className='absolute inset-x-0 flex items-center justify-center'
@@ -201,9 +201,9 @@ export function IntroSection() {
           <span
             data-letter
             data-type='daangni'
-            className='group relative grid items-center'
+            className='xs:w-[3.75rem] group relative grid w-[2.25rem] items-center md:w-[6rem] xl:w-[8rem]'
           >
-            <span className='min-w-[8rem] opacity-0 group-data-[type=text]:opacity-100'>
+            <span className='opacity-0 group-data-[type=text]:opacity-100'>
               ?
             </span>
             <img
@@ -214,7 +214,7 @@ export function IntroSection() {
             <img
               src='/images/daangni.png'
               alt=''
-              className='absolute left-1/2 top-1/2 h-full min-w-[8rem] -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 group-data-[type=daangni]:opacity-100'
+              className='absolute left-1/2 top-1/2 h-full -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 group-data-[type=daangni]:opacity-100'
             />
           </span>
         </div>
@@ -224,10 +224,13 @@ export function IntroSection() {
         </div>
       </h1>
       <aside
-        className='absolute bottom-16 left-1/2 flex -translate-x-1/2 flex-col items-center opacity-0'
+        className='absolute bottom-16 left-1/2 flex -translate-x-1/2 flex-col items-center opacity-0 md:bottom-20'
         data-scroll-guide
       >
-        <p data-text className='text-xl font-extrabold text-gray-400'>
+        <p
+          data-text
+          className='text-base font-extrabold text-gray-400 md:text-2xl'
+        >
           아래로 내려보세요
         </p>
         <svg
@@ -238,7 +241,7 @@ export function IntroSection() {
           viewBox='0 0 24 8'
           shapeRendering='geometricPrecision'
           textRendering='geometricPrecision'
-          className='mx-auto mt-4 w-14'
+          className='mx-auto mt-3 w-10 md:mt-4 md:w-14'
         >
           <path
             d='M5,8.793L17,21.95409L29,8.793v3.037174L17,24.991265L5,11.830174L5,8.793Z'
