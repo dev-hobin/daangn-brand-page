@@ -110,7 +110,6 @@ export function CommunitySection({
     >
       <h2
         data-title
-        // className='absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center font-karrot text-[4rem] leading-[1.3] text-white opacity-0'
         className='mo:text-[2.125rem] ta:text-[4rem] absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center font-karrot text-[1.75rem] leading-[1.3] text-white antialiased opacity-0'
       >
         가깝고 따뜻한 당신 근처의
