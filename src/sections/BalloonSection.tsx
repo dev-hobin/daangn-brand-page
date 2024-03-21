@@ -58,7 +58,7 @@ export function BalloonSection({ size = 1 }: BalloonSectionProps) {
         rendererSettings={{
           preserveAspectRatio: 'xMidYMid slice',
         }}
-        className='mo:block hidden h-dvh w-full'
+        className='hidden h-dvh w-full mo:block'
       />
 
       <Player
@@ -69,7 +69,7 @@ export function BalloonSection({ size = 1 }: BalloonSectionProps) {
         rendererSettings={{
           preserveAspectRatio: 'xMidYMid slice',
         }}
-        className='mo:hidden h-dvh w-full'
+        className='h-dvh w-full mo:hidden'
       />
     </section>
   )

@@ -19,17 +19,6 @@ function App() {
     }
   }, [])
 
-  useEffect(() => {
-    const handleResize = () => {
-      gsap.matchMediaRefresh()
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
   return (
     <main>
       <IntroSection />

@@ -110,7 +110,7 @@ export function CommunitySection({
     >
       <h2
         data-title
-        className='mo:text-[2.125rem] ta:text-[4rem] absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center font-karrot text-[1.75rem] leading-[1.3] text-white antialiased opacity-0'
+        className='absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center font-karrot text-[1.75rem] leading-[1.3] text-white antialiased opacity-0 mo:text-[2.125rem] ta:text-[4rem]'
       >
         가깝고 따뜻한 당신 근처의
         <br />
@@ -171,7 +171,7 @@ export function CommunitySection({
                 loop
                 playsInline
                 muted
-                className='mo:block hidden h-full w-full object-cover'
+                className='hidden h-full w-full object-cover mo:block'
               >
                 <source src='/videos/outro-pc.webm' type='video/webm' />
                 <source src='/videos/outro-pc.mp4' type='video/mp4' />
@@ -181,7 +181,7 @@ export function CommunitySection({
                 loop
                 playsInline
                 muted
-                className='mo:hidden h-full w-full object-cover'
+                className='h-full w-full object-cover mo:hidden'
               >
                 <source src='/videos/outro-mobile.webm' type='video/webm' />
                 <source src='/videos/outro-mobile.mp4' type='video/mp4' />

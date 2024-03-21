@@ -94,9 +94,9 @@ export function BrandFilmSection({
         <div className='flex flex-col items-center'>
           <h2
             data-staggers
-            className='mo:h-[4.75rem] ta:h-[6.375rem] h-[5.75rem] translate-y-[5dvh] opacity-0'
+            className='h-[5.75rem] translate-y-[5dvh] opacity-0 mo:h-[4.75rem] ta:h-[6.375rem]'
           >
-            <picture className='mo:hidden h-full'>
+            <picture className='h-full mo:hidden'>
               <source
                 srcSet='/images/campaign-title-mo.webp'
                 type='image/webp'
@@ -107,7 +107,7 @@ export function BrandFilmSection({
                 className='h-full'
               />
             </picture>
-            <picture className='mo:block hidden h-full'>
+            <picture className='hidden h-full mo:block'>
               <source
                 srcSet='/images/campaign-title-pc.webp'
                 type='image/webp'
@@ -145,40 +145,40 @@ export function BrandFilmSection({
         data-content-container
         className='absolute inset-x-0 mx-auto max-w-[68.75rem] translate-y-[5dvh] opacity-0'
       >
-        <div className='ta:flex-row ta:px-[2.5rem] ta:items-center flex flex-col items-start justify-between px-[1rem]'>
+        <div className='flex flex-col items-start justify-between px-[1rem] ta:flex-row ta:items-center ta:px-[2.5rem]'>
           <div className='relative'>
             <div
               data-first-content
               className='absolute left-0 top-1/2 -translate-y-1/2'
             >
-              <p className='mo:text-[1.625rem] mo:leading-[2.5rem] sde:text-[2.5rem] sde:leading-[3.75rem] font-karrot text-[1.25rem] leading-[2rem] text-white antialiased sm:text-[1.375rem] sm:leading-[2rem]'>
+              <p className='font-karrot text-[1.25rem] leading-[2rem] text-white antialiased sm:text-[1.375rem] sm:leading-[2rem] mo:text-[1.625rem] mo:leading-[2.5rem] sde:text-[2.5rem] sde:leading-[3.75rem]'>
                 근처에 살고 있다는 이유만으로
               </p>
-              <p className='mo:leading-[2.5rem] mo:text-[1.625rem] sde:text-[2.5rem] sde:leading-[3.75rem] font-karrot text-[1.25rem] leading-[2rem] text-white antialiased sm:text-[1.375rem] sm:leading-[2rem]'>
+              <p className='font-karrot text-[1.25rem] leading-[2rem] text-white antialiased sm:text-[1.375rem] sm:leading-[2rem] mo:text-[1.625rem] mo:leading-[2.5rem] sde:text-[2.5rem] sde:leading-[3.75rem]'>
                 함께 할 수 있는 것들이 많아져요
               </p>
             </div>
             <div data-second-content className='translate-y-[5dvh] opacity-0'>
-              <p className='mo:leading-[2.5rem] mo:text-[1.625rem] sde:text-[2.5rem] sde:leading-[3.75rem] mb-[2rem] font-karrot text-[1.25rem] leading-[2rem] text-white antialiased sm:text-[1.375rem] sm:leading-[2rem]'>
+              <p className='mb-[2rem] font-karrot text-[1.25rem] leading-[2rem] text-white antialiased sm:text-[1.375rem] sm:leading-[2rem] mo:text-[1.625rem] mo:leading-[2.5rem] sde:text-[2.5rem] sde:leading-[3.75rem]'>
                 더 가깝게, 조금은 느슨하게
               </p>
 
-              <p className='mo:leading-[2.5rem] mo:text-[1.625rem] sde:text-[2.5rem] sde:leading-[3.75rem] font-karrot text-[1.25rem] leading-[2rem] text-white antialiased sm:text-[1.375rem] sm:leading-[2rem]'>
+              <p className='font-karrot text-[1.25rem] leading-[2rem] text-white antialiased sm:text-[1.375rem] sm:leading-[2rem] mo:text-[1.625rem] mo:leading-[2.5rem] sde:text-[2.5rem] sde:leading-[3.75rem]'>
                 나와 이웃의 연결이 시작될 때
               </p>
-              <p className='mo:leading-[2.5rem] mo:text-[1.625rem] sde:text-[2.5rem] sde:leading-[3.75rem] font-karrot text-[1.25rem] leading-[2rem] text-white antialiased sm:text-[1.375rem] sm:leading-[2rem]'>
+              <p className='font-karrot text-[1.25rem] leading-[2rem] text-white antialiased sm:text-[1.375rem] sm:leading-[2rem] mo:text-[1.625rem] mo:leading-[2.5rem] sde:text-[2.5rem] sde:leading-[3.75rem]'>
                 우리의 삶은 더 이로워질 거예요.
               </p>
             </div>
           </div>
 
-          <button className='ta:text-[1.25rem] mt-[3rem] flex items-center text-[1.125rem] font-bold text-white antialiased'>
+          <button className='mt-[3rem] flex items-center text-[1.125rem] font-bold text-white antialiased ta:text-[1.25rem]'>
             브랜드 필름 보기
             <svg
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 30 30'
               fill='none'
-              className='ta:w-[1.875rem] ta:h-[1.875rem] ml-[0.375rem] h-[1.25rem] w-[1.25rem]'
+              className='ml-[0.375rem] h-[1.25rem] w-[1.25rem] ta:h-[1.875rem] ta:w-[1.875rem]'
             >
               <path
                 fillRule='evenodd'
