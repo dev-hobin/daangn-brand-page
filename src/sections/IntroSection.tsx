@@ -146,7 +146,7 @@ export function IntroSection() {
 
   return (
     <section ref={ref} className='grid h-dvh items-center'>
-      <h1 className='mobile:text-6xl tablet:text-8xl desktop:text-9xl relative flex flex-col items-center overflow-hidden py-12 font-karrot text-4xl'>
+      <h1 className='ta:text-8xl de:text-9xl relative flex flex-col items-center overflow-hidden py-12 font-karrot text-4xl sm:text-5xl'>
         <div
           data-question
           className='absolute inset-x-0 flex items-center justify-center'
@@ -201,7 +201,7 @@ export function IntroSection() {
           <span
             data-letter
             data-type='daangni'
-            className='mobile:w-[3.75rem] tablet:w-[6rem] desktop:w-[8rem] group relative grid w-[2.25rem] items-center'
+            className='ta:w-[6rem] de:w-[8rem] group relative grid w-[2.25rem] items-center sm:w-[3.75rem]'
           >
             <span className='opacity-0 group-data-[type=text]:opacity-100'>
               ?

@@ -18,9 +18,9 @@ export function EndingSection() {
   }
 
   return (
-    <section className='flex h-dvh flex-col items-center justify-start'>
+    <section className='flex h-dvh flex-col items-center justify-center'>
       <div
-        className='relative h-[31.25rem] w-[25rem] cursor-pointer transition-transform hover:active:scale-[0.98]'
+        className='mo:w-[25rem] mo:h-[31.25rem] mo:-mt-[15.625rem] relative -mt-[7.8125rem] h-[15.625rem] w-[12.5rem] cursor-pointer transition-transform hover:active:scale-[0.98]'
         onClick={handleLogoClick}
       >
         <Player
@@ -47,7 +47,7 @@ export function EndingSection() {
           className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2'
         />
       </div>
-      <p className='mt-[3.125rem] text-center font-karrot text-[2.5rem]'>
+      <p className='mo:text-[2.5rem] mo:mt-[3.125rem] mt-[1.875rem] select-none text-center font-karrot text-[1.5rem] text-[#212124] sm:text-[1.75rem]'>
         당근에서 만나요!
       </p>
     </section>

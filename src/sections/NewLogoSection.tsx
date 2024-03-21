@@ -66,7 +66,7 @@ export function NewLogoSection({ size = 1, delay = '0/100' }: ScrollProps) {
             <img
               src='/images/logo-img.png'
               alt='새로운 당근 로고 이미지'
-              className='mobile:w-[calc(0.7*10.875rem)] tablet:w-[10.875rem] w-[calc(0.5*10.875rem)]'
+              className='ta:w-[10.875rem] w-[calc(0.5*10.875rem)] sm:w-[calc(0.7*10.875rem)]'
             />
           </picture>
           <picture data-logo-text-container className='relative mt-[2rem]'>
@@ -74,15 +74,15 @@ export function NewLogoSection({ size = 1, delay = '0/100' }: ScrollProps) {
             <img
               srcSet='/images/logo-text.png'
               alt='새로운 당근 로고 텍스트'
-              className='mobile:h-[calc(0.7*8.4375rem)] tablet:h-[8.4375rem] h-[calc(0.5*8.4375rem)]'
+              className='ta:h-[8.4375rem] h-[calc(0.5*8.4375rem)] sm:h-[calc(0.7*8.4375rem)]'
             />
           </picture>
         </div>
-        <div data-description className='mobile:mt-10 tablet:mt-12 mt-6'>
-          <p className='mobile:text-[calc(0.7*2.375rem)] tablet:text-[2.25rem] text-center font-karrot text-[calc(0.5*2.875rem)] leading-normal antialiased'>
+        <div data-description className='ta:mt-12 mt-6 sm:mt-10'>
+          <p className='ta:text-[2.25rem] text-center font-karrot text-[calc(0.5*2.875rem)] leading-normal antialiased sm:text-[calc(0.7*2.375rem)]'>
             소개할게요!
           </p>
-          <p className='mobile:text-[calc(0.7*2.375rem)] tablet:text-[2.25rem] text-center font-karrot text-[calc(0.5*2.875rem)] leading-normal antialiased'>
+          <p className='ta:text-[2.25rem] text-center font-karrot text-[calc(0.5*2.875rem)] leading-normal antialiased sm:text-[calc(0.7*2.375rem)]'>
             당근마켓의 새 이름, 새 얼굴
           </p>
         </div>

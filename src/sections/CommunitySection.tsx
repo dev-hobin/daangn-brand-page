@@ -6,6 +6,13 @@ import { horizontalLoop } from '../utils/horizontalLoop'
 import { useRef } from 'react'
 import { ScrollProps } from '../types'
 
+const textFadeInAnimation = (scrollElement: HTMLElement) => {
+  const select = gsap.utils.selector(scrollElement)
+  const title = select('[data-title]')
+
+  return gsap.timeline().to(title, { opacity: 1 })
+}
+
 const animation = (scrollElement: HTMLElement) => {
   const select = gsap.utils.selector(scrollElement)
   const title = select('[data-title]')
@@ -27,6 +34,7 @@ const animation = (scrollElement: HTMLElement) => {
 
   const tl = gsap
     .timeline()
+    .add(textFadeInAnimation(scrollElement))
     .set(staticGalleryFadeItems, {
       opacity: 0,
       xPercent: (index, _, targets) => {
@@ -35,7 +43,6 @@ const animation = (scrollElement: HTMLElement) => {
       },
     })
     .set(autoGalleryFadeInItems, { yPercent: 10, opacity: 0 })
-    .to(title, { opacity: 1 })
     .to(title, { opacity: 0 })
     .to(background, {
       width: '32.375rem',
@@ -60,21 +67,40 @@ export function CommunitySection({
 
   useGSAP(() => {
     if (!ref.current) return
+    const breakPoint = 480
 
-    new ScrollTrigger({
-      trigger: ref.current,
-      pin: true,
-      scrub: true,
-      start: 'top top',
-      end: () => `top+=${innerHeight * size} top`,
-      animation: fastForwardAnimation(animation(ref.current), faster),
-    })
+    gsap.matchMedia().add(
+      {
+        isUnderMobile: `(max-width: ${breakPoint - 1}px)`,
+        isOverMobile: `(min-width: ${breakPoint}px)`,
+      },
+      (context) => {
+        if (!context.conditions) return
+        const { isUnderMobile } = context.conditions
 
-    horizontalLoop(gsap.utils.toArray('[data-gallery-item]'), {
-      repeat: -1,
-      speed: 0.3,
-      paddingRight: 24,
-    })
+        new ScrollTrigger({
+          trigger: ref.current!,
+          pin: true,
+          scrub: true,
+          start: 'top top',
+          end: () =>
+            isUnderMobile
+              ? `top+=${innerHeight * 2} top`
+              : `top+=${innerHeight * size} top`,
+          animation: isUnderMobile
+            ? fastForwardAnimation(textFadeInAnimation(ref.current!), '1/2')
+            : fastForwardAnimation(animation(ref.current!), faster),
+        })
+
+        if (!isUnderMobile) {
+          horizontalLoop(gsap.utils.toArray('[data-gallery-item]'), {
+            repeat: -1,
+            speed: 0.3,
+            paddingRight: 24,
+          })
+        }
+      },
+    )
   })
 
   return (
@@ -84,7 +110,8 @@ export function CommunitySection({
     >
       <h2
         data-title
-        className='absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center font-karrot text-[4rem] leading-[1.3] text-white opacity-0'
+        // className='absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center font-karrot text-[4rem] leading-[1.3] text-white opacity-0'
+        className='mo:text-[2.125rem] ta:text-[4rem] absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center font-karrot text-[1.75rem] leading-[1.3] text-white antialiased opacity-0'
       >
         가깝고 따뜻한 당신 근처의
         <br />
@@ -138,17 +165,27 @@ export function CommunitySection({
             </div>
             <div
               data-background
-              className='h-screen w-screen min-w-[32.375rem] overflow-hidden'
+              className='h-dvh w-screen min-w-[32.375rem] overflow-hidden'
             >
               <video
                 autoPlay
                 loop
                 playsInline
                 muted
-                className='h-full w-full object-cover'
+                className='mo:block hidden h-full w-full object-cover'
               >
                 <source src='/videos/outro-pc.webm' type='video/webm' />
                 <source src='/videos/outro-pc.mp4' type='video/mp4' />
+              </video>
+              <video
+                autoPlay
+                loop
+                playsInline
+                muted
+                className='mo:hidden h-full w-full object-cover'
+              >
+                <source src='/videos/outro-mobile.webm' type='video/webm' />
+                <source src='/videos/outro-mobile.mp4' type='video/mp4' />
               </video>
             </div>
             <div
