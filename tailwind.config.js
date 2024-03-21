@@ -7,7 +7,9 @@ export default {
         karrot: ['KarrotSans Bold'],
       },
       screens: {
-        xs: '480px',
+        mobile: '375px',
+        tablet: '768px',
+        desktop: '1280px',
       },
     },
   },
